@@ -15,6 +15,7 @@ mkdir -p public/locales/{언어코드}
 ```
 
 예시: 일본어 추가
+
 ```bash
 mkdir -p public/locales/ja
 ```
@@ -22,6 +23,7 @@ mkdir -p public/locales/ja
 ### 2. JSON 파일 작성
 
 `public/locales/ja/common.json`:
+
 ```json
 {
   "app": {
@@ -36,6 +38,7 @@ mkdir -p public/locales/ja
 ```
 
 `public/locales/ja/modules.json`:
+
 ```json
 {
   "items": {
@@ -47,6 +50,7 @@ mkdir -p public/locales/ja
 ### 3. i18n 설정 업데이트
 
 `src/shared/services/i18n.ts`:
+
 ```typescript
 export const SUPPORTED_LANGUAGES = ['ko', 'zh', 'en', 'ja'] as const
 ```
@@ -54,6 +58,7 @@ export const SUPPORTED_LANGUAGES = ['ko', 'zh', 'en', 'ja'] as const
 ### 4. 언어 메타데이터 추가
 
 `src/shared/hooks/useLanguage.ts`:
+
 ```typescript
 const LANGUAGE_METADATA = [
   { code: 'ko', label: '한국어', flag: '🇰🇷' },
@@ -72,7 +77,7 @@ import { useTranslation } from 'react-i18next'
 
 function MyComponent() {
   const { t } = useTranslation()
-  
+
   return (
     <div>
       <h1>{t('app.name')}</h1>
@@ -90,10 +95,10 @@ import { useLanguage } from '@/shared/hooks/useLanguage'
 
 function LanguageSwitcher() {
   const { currentLanguage, changeLanguage, languages } = useLanguage()
-  
+
   return (
     <div>
-      {languages.map(lang => (
+      {languages.map((lang) => (
         <button
           key={lang.code}
           onClick={() => changeLanguage(lang.code)}
@@ -121,6 +126,7 @@ t('validation.minLength', { min: 5 })
 - `modules`: 모듈별 문구 (items, stocks, inbounds, outbounds)
 
 새로운 네임스페이스 추가:
+
 ```typescript
 // i18n.ts
 ns: ['common', 'modules', 'errors'], // 'errors' 추가
@@ -144,6 +150,7 @@ public/locales/
 ## 베스트 프랙티스
 
 1. **키 네이밍**: 계층 구조 사용
+
    ```json
    {
      "module": {
@@ -155,6 +162,7 @@ public/locales/
    ```
 
 2. **변수 사용**: 동적 값은 변수로 처리
+
    ```json
    {
      "welcome": "환영합니다, {{name}}님"
@@ -162,6 +170,7 @@ public/locales/
    ```
 
 3. **복수형 처리**:
+
    ```json
    {
      "items": "상품",
@@ -188,4 +197,3 @@ public/locales/
 1. localStorage의 `i18nextLng` 키 확인
 2. `SUPPORTED_LANGUAGES`에 언어 코드 포함 여부 확인
 3. 브라우저 캐시 삭제
-

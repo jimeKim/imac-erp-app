@@ -10,3 +10,9 @@ interface ImportMeta {
   readonly env: ImportMetaEnv
 }
 
+// TypeScript ambient declaration - extends global ImportMeta
+declare module 'vite/client' {
+  interface ImportMeta {
+    readonly env: ImportMetaEnv
+  }
+}

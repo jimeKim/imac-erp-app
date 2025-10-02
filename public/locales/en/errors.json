@@ -1,0 +1,26 @@
+{
+  "AUTH_INVALID_CREDENTIALS": "Invalid email or password",
+  "AUTH_TOKEN_EXPIRED": "Session expired. Please login again",
+  "AUTH_UNAUTHORIZED": "Login required",
+  "AUTH_FORBIDDEN": "Access denied",
+  
+  "VALIDATION_FAILED": "Please check your input",
+  "VALIDATION_REQUIRED_FIELD": "Please fill in required fields",
+  "VALIDATION_INVALID_FORMAT": "Please enter in correct format",
+  
+  "RESOURCE_NOT_FOUND": "Requested information not found",
+  "RESOURCE_ALREADY_EXISTS": "Information already exists",
+  "RESOURCE_CONFLICT": "Data conflict occurred",
+  
+  "BUSINESS_INSUFFICIENT_STOCK": "Insufficient stock",
+  "BUSINESS_INVALID_STATUS_TRANSITION": "Cannot process in current status",
+  "BUSINESS_PERMISSION_DENIED": "Operation permission denied",
+  
+  "SYSTEM_INTERNAL_ERROR": "System error occurred",
+  "SYSTEM_SERVICE_UNAVAILABLE": "Service temporarily unavailable",
+  "SYSTEM_TIMEOUT": "Request timeout",
+  
+  "NETWORK_ERROR": "Please check network connection",
+  "UNKNOWN_ERROR": "Unknown error occurred"
+}
+

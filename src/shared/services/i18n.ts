@@ -19,8 +19,8 @@ i18n
     fallbackLng: 'en', // 기본 언어 (국제 표준)
     debug: import.meta.env.DEV,
 
-    // 네임스페이스
-    ns: ['common', 'modules'],
+    // 네임스페이스 - errors 추가
+    ns: ['common', 'modules', 'errors'],
     defaultNS: 'common',
 
     interpolation: {

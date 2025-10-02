@@ -1,0 +1,26 @@
+{
+  "AUTH_INVALID_CREDENTIALS": "邮箱或密码不正确",
+  "AUTH_TOKEN_EXPIRED": "会话已过期，请重新登录",
+  "AUTH_UNAUTHORIZED": "需要登录",
+  "AUTH_FORBIDDEN": "无访问权限",
+  
+  "VALIDATION_FAILED": "请检查输入信息",
+  "VALIDATION_REQUIRED_FIELD": "请输入必填项",
+  "VALIDATION_INVALID_FORMAT": "请输入正确格式",
+  
+  "RESOURCE_NOT_FOUND": "找不到请求的信息",
+  "RESOURCE_ALREADY_EXISTS": "信息已存在",
+  "RESOURCE_CONFLICT": "发生数据冲突",
+  
+  "BUSINESS_INSUFFICIENT_STOCK": "库存不足",
+  "BUSINESS_INVALID_STATUS_TRANSITION": "当前状态无法处理",
+  "BUSINESS_PERMISSION_DENIED": "无操作权限",
+  
+  "SYSTEM_INTERNAL_ERROR": "系统发生错误",
+  "SYSTEM_SERVICE_UNAVAILABLE": "服务暂时不可用",
+  "SYSTEM_TIMEOUT": "请求超时",
+  
+  "NETWORK_ERROR": "请检查网络连接",
+  "UNKNOWN_ERROR": "发生未知错误"
+}
+
