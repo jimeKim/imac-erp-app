@@ -1,6 +1,7 @@
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
+import HttpBackend from 'i18next-http-backend'
 
 /**
  * 지원 언어 목록
@@ -13,6 +14,7 @@ export const SUPPORTED_LANGUAGES = ['ko', 'zh', 'en'] as const
 export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number]
 
 i18n
+  .use(HttpBackend)
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
@@ -27,9 +29,12 @@ i18n
       escapeValue: false, // React already escapes
     },
 
-    // 백엔드 설정
+    // 백엔드 설정 (HTTP로 JSON 파일 로드)
     backend: {
       loadPath: '/locales/{{lng}}/{{ns}}.json',
+      requestOptions: {
+        cache: 'no-cache',
+      },
     },
 
     // 지원 언어
