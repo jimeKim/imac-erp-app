@@ -40,11 +40,11 @@ canceled
 
 ## RBAC
 
-| Role | 조회 | 초안 | 제출 | 승인 | 커밋 |
-|------|------|------|------|------|------|
-| readonly | ✅ | ❌ | ❌ | ❌ | ❌ |
-| staff | ✅ | ✅ | ✅ | ❌ | ❌ |
-| manager | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Role     | 조회 | 초안 | 제출 | 승인 | 커밋 |
+| -------- | ---- | ---- | ---- | ---- | ---- |
+| readonly | ✅   | ❌   | ❌   | ❌   | ❌   |
+| staff    | ✅   | ✅   | ✅   | ❌   | ❌   |
+| manager  | ✅   | ✅   | ✅   | ✅   | ✅   |
 
 ## API Endpoints
 
@@ -55,4 +55,3 @@ canceled
 - `POST /api/v1/outbounds/:id/submit` - 제출 (Phase 1)
 - `POST /api/v1/outbounds/:id/approve` - 승인 (Phase 1)
 - `POST /api/v1/outbounds/:id/commit` - 커밋 (Phase 1)
-

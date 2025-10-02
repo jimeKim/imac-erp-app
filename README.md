@@ -5,23 +5,28 @@
 ## Tech Stack
 
 ### Core
+
 - React 18 + TypeScript
 - Vite (빌드 도구)
 - TanStack Query (서버 상태 관리)
 
 ### UI/UX
+
 - Tailwind CSS + shadcn/ui
 - Lucide React (아이콘)
 - i18next (한글/중국어)
 
 ### Form & Validation
+
 - React Hook Form + Zod
 
 ### Networking
+
 - Axios (HTTP 클라이언트)
 - Zustand (클라이언트 상태)
 
 ### Quality
+
 - ESLint + Prettier
 - Vitest (단위 테스트)
 - Playwright (E2E 테스트)
@@ -89,4 +94,3 @@ src/
 - Base URL: `VITE_API_BASE_URL`
 - 엔진: FastAPI + Supabase
 - 에러 처리: 표준 토스트 메시지
-

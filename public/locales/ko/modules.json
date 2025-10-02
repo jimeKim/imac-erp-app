@@ -1,0 +1,53 @@
+{
+  "dashboard": {
+    "title": "대시보드",
+    "welcome": "환영합니다"
+  },
+  "items": {
+    "title": "상품 관리",
+    "list": "상품 목록",
+    "detail": "상품 상세",
+    "itemCode": "상품코드",
+    "itemName": "상품명",
+    "color": "색상",
+    "size": "사이즈",
+    "type": "유형",
+    "price": "가격",
+    "stock": "재고",
+    "status": "상태"
+  },
+  "stocks": {
+    "title": "재고 관리",
+    "currentStock": "현재 재고",
+    "safetyStock": "안전 재고",
+    "stockAlert": "재고 경고",
+    "warehouse": "창고"
+  },
+  "inbounds": {
+    "title": "입고 관리",
+    "inboundCode": "입고코드",
+    "supplier": "공급처",
+    "requestedDate": "요청일자",
+    "status": "상태"
+  },
+  "outbounds": {
+    "title": "출고 관리",
+    "outboundCode": "출고코드",
+    "customer": "거래처",
+    "requestedDate": "요청일자",
+    "status": "상태",
+    "draft": "초안",
+    "pending": "제출됨",
+    "approved": "승인됨",
+    "committed": "확정됨",
+    "canceled": "취소됨",
+    "createOutbound": "출고 등록",
+    "header": "헤더 정보",
+    "lines": "출고 라인",
+    "addLine": "라인 추가",
+    "quantity": "수량",
+    "unitPrice": "단가",
+    "totalPrice": "합계"
+  }
+}
+

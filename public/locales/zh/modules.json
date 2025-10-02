@@ -1,0 +1,53 @@
+{
+  "dashboard": {
+    "title": "仪表板",
+    "welcome": "欢迎"
+  },
+  "items": {
+    "title": "商品管理",
+    "list": "商品列表",
+    "detail": "商品详情",
+    "itemCode": "商品代码",
+    "itemName": "商品名称",
+    "color": "颜色",
+    "size": "尺寸",
+    "type": "类型",
+    "price": "价格",
+    "stock": "库存",
+    "status": "状态"
+  },
+  "stocks": {
+    "title": "库存管理",
+    "currentStock": "当前库存",
+    "safetyStock": "安全库存",
+    "stockAlert": "库存警告",
+    "warehouse": "仓库"
+  },
+  "inbounds": {
+    "title": "入库管理",
+    "inboundCode": "入库代码",
+    "supplier": "供应商",
+    "requestedDate": "请求日期",
+    "status": "状态"
+  },
+  "outbounds": {
+    "title": "出库管理",
+    "outboundCode": "出库代码",
+    "customer": "客户",
+    "requestedDate": "请求日期",
+    "status": "状态",
+    "draft": "草稿",
+    "pending": "待处理",
+    "approved": "已批准",
+    "committed": "已确认",
+    "canceled": "已取消",
+    "createOutbound": "创建出库单",
+    "header": "头部信息",
+    "lines": "出库明细",
+    "addLine": "添加明细",
+    "quantity": "数量",
+    "unitPrice": "单价",
+    "totalPrice": "总价"
+  }
+}
+

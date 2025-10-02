@@ -1,0 +1,43 @@
+{
+  "app": {
+    "name": "ERP 시스템",
+    "title": "기업 자원 관리"
+  },
+  "auth": {
+    "login": "로그인",
+    "logout": "로그아웃",
+    "email": "이메일",
+    "password": "비밀번호",
+    "rememberMe": "로그인 유지",
+    "forgotPassword": "비밀번호 찾기"
+  },
+  "common": {
+    "save": "저장",
+    "cancel": "취소",
+    "delete": "삭제",
+    "edit": "수정",
+    "create": "생성",
+    "search": "검색",
+    "filter": "필터",
+    "export": "내보내기",
+    "import": "가져오기",
+    "refresh": "새로고침",
+    "loading": "로딩 중...",
+    "noData": "데이터가 없습니다",
+    "error": "오류가 발생했습니다",
+    "success": "성공",
+    "confirm": "확인",
+    "back": "돌아가기",
+    "next": "다음",
+    "previous": "이전",
+    "submit": "제출",
+    "reset": "초기화"
+  },
+  "validation": {
+    "required": "필수 입력 항목입니다",
+    "email": "올바른 이메일 형식이 아닙니다",
+    "minLength": "최소 {{min}}자 이상 입력해주세요",
+    "maxLength": "최대 {{max}}자까지 입력 가능합니다"
+  }
+}
+
