@@ -24,9 +24,11 @@ function App() {
                   variant={currentLanguage === lang.code ? 'default' : 'outline'}
                   size="sm"
                   onClick={() => changeLanguage(lang.code)}
+                  className="gap-1.5"
                 >
-                  <Globe className="h-4 w-4" />
-                  {lang.label}
+                  <span className="text-base">{lang.flag}</span>
+                  <Globe className="h-3.5 w-3.5" />
+                  <span className="hidden sm:inline">{lang.label}</span>
                 </Button>
               ))}
             </div>
@@ -36,7 +38,7 @@ function App() {
         <CardContent className="space-y-6">
           <div className="rounded-lg bg-blue-50 p-6">
             <h3 className="mb-3 text-lg font-semibold text-blue-900">
-              Phase 0: 프로젝트 세팅 완료
+              Phase 0: 프로젝트 세팅 완료 ✨
             </h3>
             <div className="grid grid-cols-2 gap-3 text-sm text-blue-800">
               <div className="flex items-center gap-2">
@@ -61,7 +63,7 @@ function App() {
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-green-600">✓</span>
-                <span>i18next (한글/중국어)</span>
+                <span>i18next (한/중/영)</span>
               </div>
             </div>
           </div>
@@ -78,29 +80,45 @@ function App() {
           </div>
 
           <div className="space-y-3">
-            <h4 className="font-semibold">모듈 메뉴</h4>
+            <h4 className="font-semibold">{t('common.common', { defaultValue: '모듈 메뉴' })}</h4>
             <div className="grid grid-cols-2 gap-2 text-sm">
               <Button variant="outline" className="justify-start">
-                {t('modules:items.title')}
+                📦 {t('modules:items.title')}
               </Button>
               <Button variant="outline" className="justify-start">
-                {t('modules:stocks.title')}
+                📊 {t('modules:stocks.title')}
               </Button>
               <Button variant="outline" className="justify-start">
-                {t('modules:inbounds.title')}
+                📥 {t('modules:inbounds.title')}
               </Button>
               <Button variant="outline" className="justify-start">
-                {t('modules:outbounds.title')}
+                📤 {t('modules:outbounds.title')}
               </Button>
             </div>
           </div>
 
           <div className="rounded-lg border border-blue-200 bg-blue-50 p-4 text-sm text-blue-800">
-            <p className="font-semibold">다음 단계: Todo 8-10</p>
+            <p className="font-semibold">
+              {currentLanguage === 'ko' && '다음 단계: Todo 8-10'}
+              {currentLanguage === 'zh' && '下一步: Todo 8-10'}
+              {currentLanguage === 'en' && 'Next Steps: Todo 8-10'}
+            </p>
             <ul className="ml-4 mt-2 list-disc space-y-1">
-              <li>Axios 클라이언트 & 에러 맵퍼</li>
-              <li>인증 컨텍스트 (AuthProvider)</li>
-              <li>테스트 환경 구축</li>
+              <li>
+                {currentLanguage === 'ko' && 'Axios 클라이언트 & 에러 맵퍼'}
+                {currentLanguage === 'zh' && 'Axios 客户端 & 错误映射'}
+                {currentLanguage === 'en' && 'Axios Client & Error Mapper'}
+              </li>
+              <li>
+                {currentLanguage === 'ko' && '인증 컨텍스트 (AuthProvider)'}
+                {currentLanguage === 'zh' && '认证上下文 (AuthProvider)'}
+                {currentLanguage === 'en' && 'Auth Context (AuthProvider)'}
+              </li>
+              <li>
+                {currentLanguage === 'ko' && '테스트 환경 구축'}
+                {currentLanguage === 'zh' && '测试环境搭建'}
+                {currentLanguage === 'en' && 'Testing Environment Setup'}
+              </li>
             </ul>
           </div>
         </CardContent>

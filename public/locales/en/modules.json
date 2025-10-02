@@ -1,0 +1,53 @@
+{
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome"
+  },
+  "items": {
+    "title": "Item Management",
+    "list": "Item List",
+    "detail": "Item Detail",
+    "itemCode": "Item Code",
+    "itemName": "Item Name",
+    "color": "Color",
+    "size": "Size",
+    "type": "Type",
+    "price": "Price",
+    "stock": "Stock",
+    "status": "Status"
+  },
+  "stocks": {
+    "title": "Stock Management",
+    "currentStock": "Current Stock",
+    "safetyStock": "Safety Stock",
+    "stockAlert": "Stock Alert",
+    "warehouse": "Warehouse"
+  },
+  "inbounds": {
+    "title": "Inbound Management",
+    "inboundCode": "Inbound Code",
+    "supplier": "Supplier",
+    "requestedDate": "Requested Date",
+    "status": "Status"
+  },
+  "outbounds": {
+    "title": "Outbound Management",
+    "outboundCode": "Outbound Code",
+    "customer": "Customer",
+    "requestedDate": "Requested Date",
+    "status": "Status",
+    "draft": "Draft",
+    "pending": "Pending",
+    "approved": "Approved",
+    "committed": "Committed",
+    "canceled": "Canceled",
+    "createOutbound": "Create Outbound",
+    "header": "Header Information",
+    "lines": "Outbound Lines",
+    "addLine": "Add Line",
+    "quantity": "Quantity",
+    "unitPrice": "Unit Price",
+    "totalPrice": "Total Price"
+  }
+}
+
