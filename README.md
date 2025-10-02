@@ -14,6 +14,7 @@
 ## 📚 Tech Stack
 
 ### Frontend
+
 - **React 18** + **TypeScript** + **Vite**
 - **Tailwind CSS** + **shadcn/ui**
 - **React Router** v6 (라우팅)
@@ -23,11 +24,13 @@
 - **i18next** (다국어 지원: ko/zh/en)
 
 ### API & Auth
+
 - **Axios** (HTTP 클라이언트, 인터셉터)
 - **JWT** (HTTPOnly 쿠키 권장)
 - **RBAC** (역할 기반 접근 제어)
 
 ### Code Quality
+
 - **ESLint** + **Prettier** (코드 포맷팅)
 - **Husky** + **lint-staged** (pre-commit 훅)
 - **Vitest** (단위 테스트)
@@ -124,21 +127,25 @@ erp-app/
 ## 🎯 Core Modules
 
 ### 1. Items (재고 관리)
+
 - 재고 목록 조회 (검색, 필터, 정렬, 페이지네이션)
 - 재고 상세 정보
 - 재고 등록/수정 (staff, manager)
 
 ### 2. Stocks (재고 현황)
+
 - 재고 현황 대시보드
 - 재고 수량 조정 (manager)
 - 안전 재고 알림
 
 ### 3. Inbounds (입고 관리)
+
 - 입고 목록 (기간/공급처 필터)
 - 입고 등록/수정 (staff, manager)
 - 입고 승인 (manager)
 
 ### 4. Outbounds (출고 관리)
+
 - 출고 목록 (기간/고객 필터)
 - 출고 등록 (staff, manager)
 - 출고 승인 (manager)
@@ -146,17 +153,18 @@ erp-app/
 
 ## 🔐 RBAC (Role-Based Access Control)
 
-| 역할 | 권한 |
-|------|------|
-| **readonly** | Items (View), Stocks (View), Inbounds (View), Outbounds (View) |
-| **staff** | Items (View, Create, Update), Stocks (View), Inbounds (View, Create, Update), Outbounds (View, Create, Update) |
-| **manager** | 모든 권한 + Items (Delete), Inbounds (Delete), Outbounds (Delete, Approve, Commit), Stocks (Update), Users (Manage) |
+| 역할         | 권한                                                                                                                |
+| ------------ | ------------------------------------------------------------------------------------------------------------------- |
+| **readonly** | Items (View), Stocks (View), Inbounds (View), Outbounds (View)                                                      |
+| **staff**    | Items (View, Create, Update), Stocks (View), Inbounds (View, Create, Update), Outbounds (View, Create, Update)      |
+| **manager**  | 모든 권한 + Items (Delete), Inbounds (Delete), Outbounds (Delete, Approve, Commit), Stocks (Update), Users (Manage) |
 
 자세한 내용은 [src/shared/constants/roles.ts](src/shared/constants/roles.ts) 참조
 
 ## 🌍 Internationalization
 
 지원 언어:
+
 - 한국어 (ko)
 - 中文 (zh)
 - English (en)
@@ -166,6 +174,7 @@ erp-app/
 ## 🔧 Environment Variables
 
 필수 환경 변수:
+
 ```bash
 VITE_API_BASE_URL=http://localhost:3000/api/v1  # 백엔드 API URL
 VITE_API_TIMEOUT_MS=15000                       # API 타임아웃
@@ -177,6 +186,7 @@ VITE_APP_NAME=ERP System                        # 앱 이름
 ## 🧪 Testing
 
 ### 단위 테스트 (Vitest)
+
 ```bash
 npm run test              # 테스트 실행
 npm run test:ui           # UI 모드
@@ -184,11 +194,13 @@ npm run test:coverage     # 커버리지
 ```
 
 현재 테스트:
+
 - cn 유틸리티 (5 tests)
 - Button 컴포넌트 (5 tests)
 - RBAC 시스템 (8 tests)
 
 ### E2E 테스트 (Playwright)
+
 ```bash
 npm run e2e               # E2E 테스트 실행
 npm run e2e:ui            # UI 모드
@@ -196,6 +208,7 @@ npm run e2e:headed        # 브라우저 보이기
 ```
 
 현재 테스트:
+
 - 홈페이지 로드
 - 언어 전환 (ko/zh/en)
 - 에러 메시지 데모
@@ -206,16 +219,19 @@ npm run e2e:headed        # 브라우저 보이기
 ## 💡 Development Guidelines
 
 ### Coding Standards
+
 - TypeScript strict 모드 사용
 - ESLint + Prettier 자동 포맷팅
 - Husky pre-commit 훅으로 자동 검증
 
 ### Component Structure
+
 - Feature-based 폴더 구조
 - Lazy loading으로 번들 최적화
 - Compound component 패턴 사용
 
 ### API Integration
+
 - TanStack Query로 서버 상태 관리
 - Axios 인터셉터로 에러 처리
 - 다국어 에러 메시지 매핑
