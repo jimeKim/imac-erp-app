@@ -6,7 +6,17 @@ import tseslint from '@typescript-eslint/eslint-plugin'
 import tsparser from '@typescript-eslint/parser'
 
 export default [
-  { ignores: ['dist', 'node_modules'] },
+  {
+    ignores: [
+      'dist',
+      'node_modules',
+      '*.config.js',
+      '*.config.ts',
+      'playwright-report',
+      'test-results',
+      'e2e',
+    ],
+  },
   {
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
