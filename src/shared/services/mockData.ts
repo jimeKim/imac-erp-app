@@ -7,6 +7,7 @@
 import { Item } from '@/shared/types/item'
 import { Stock } from '@/shared/types/stock'
 import { Inbound } from '@/shared/types/inbound'
+import { Outbound } from '@/shared/types/outbound'
 
 /**
  * Mock Items 데이터
@@ -352,6 +353,134 @@ export const MOCK_INBOUNDS: Inbound[] = [
     createdBy: 'user-002',
     createdAt: '2024-09-13T11:00:00Z',
     updatedAt: '2024-09-17T16:00:00Z',
+  },
+]
+
+/**
+ * Mock Outbounds 데이터
+ */
+export const MOCK_OUTBOUNDS: Outbound[] = [
+  {
+    id: 'OUT-001',
+    outboundCode: 'OUT-2024-001',
+    customerId: 'CUST-001',
+    customerName: '(주)테크솔루션',
+    warehouseId: 'WH-001',
+    warehouseName: '본사 창고',
+    requestedDate: '2024-09-25',
+    shippedDate: '2024-09-26',
+    committedDate: '2024-09-26',
+    status: 'committed',
+    totalAmount: 1450000,
+    lines: [
+      {
+        id: 'LINE-OUT-001',
+        itemId: '1',
+        itemCode: 'ITEM-001',
+        itemName: '노트북 거치대 (화이트)',
+        quantity: 30,
+        unitPrice: 25000,
+        totalPrice: 750000,
+      },
+      {
+        id: 'LINE-OUT-002',
+        itemId: '3',
+        itemCode: 'ITEM-003',
+        itemName: '기계식 키보드 RGB (화이트)',
+        quantity: 10,
+        unitPrice: 75000,
+        totalPrice: 750000,
+      },
+    ],
+    note: '정기 배송',
+    createdBy: 'user-001',
+    createdAt: '2024-09-23T10:00:00Z',
+    updatedAt: '2024-09-26T15:30:00Z',
+  },
+  {
+    id: 'OUT-002',
+    outboundCode: 'OUT-2024-002',
+    customerId: 'CUST-002',
+    customerName: '글로벌마켓',
+    warehouseId: 'WH-001',
+    warehouseName: '본사 창고',
+    requestedDate: '2024-09-28',
+    status: 'approved',
+    totalAmount: 1840000,
+    lines: [
+      {
+        id: 'LINE-OUT-003',
+        itemId: '2',
+        itemCode: 'ITEM-002',
+        itemName: '무선 마우스 (블랙)',
+        quantity: 50,
+        unitPrice: 20000,
+        totalPrice: 1000000,
+      },
+      {
+        id: 'LINE-OUT-004',
+        itemId: '7',
+        itemCode: 'ITEM-007',
+        itemName: '블루투스 스피커 (화이트)',
+        quantity: 20,
+        unitPrice: 50000,
+        totalPrice: 1000000,
+      },
+    ],
+    createdBy: 'user-002',
+    createdAt: '2024-09-26T09:30:00Z',
+    updatedAt: '2024-09-27T14:20:00Z',
+  },
+  {
+    id: 'OUT-003',
+    outboundCode: 'OUT-2024-003',
+    customerId: 'CUST-001',
+    customerName: '(주)테크솔루션',
+    warehouseId: 'WH-001',
+    warehouseName: '본사 창고',
+    requestedDate: '2024-10-02',
+    status: 'pending',
+    totalAmount: 2400000,
+    lines: [
+      {
+        id: 'LINE-OUT-005',
+        itemId: '4',
+        itemCode: 'ITEM-004',
+        itemName: '모니터 암 (싱글)',
+        quantity: 40,
+        unitPrice: 60000,
+        totalPrice: 2400000,
+      },
+    ],
+    note: '긴급 출고',
+    createdBy: 'user-001',
+    createdAt: '2024-10-01T11:00:00Z',
+    updatedAt: '2024-10-01T11:00:00Z',
+  },
+  {
+    id: 'OUT-004',
+    outboundCode: 'OUT-2024-004',
+    customerId: 'CUST-003',
+    customerName: '스마트오피스',
+    warehouseId: 'WH-001',
+    warehouseName: '본사 창고',
+    requestedDate: '2024-10-05',
+    status: 'draft',
+    totalAmount: 1350000,
+    lines: [
+      {
+        id: 'LINE-OUT-006',
+        itemId: '5',
+        itemCode: 'ITEM-005',
+        itemName: '책상 정리 세트 (베이지)',
+        quantity: 30,
+        unitPrice: 45000,
+        totalPrice: 1350000,
+      },
+    ],
+    createdBy: 'user-001',
+    createdAt: '2024-10-02T14:00:00Z',
+    updatedAt: '2024-10-02T14:00:00Z',
   },
 ]
 
