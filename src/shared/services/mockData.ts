@@ -6,6 +6,7 @@
 
 import { Item } from '@/shared/types/item'
 import { Stock } from '@/shared/types/stock'
+import { Inbound } from '@/shared/types/inbound'
 
 /**
  * Mock Items 데이터
@@ -195,10 +196,164 @@ export const MOCK_STOCKS: Stock[] = MOCK_ITEMS.map((item) => ({
   warehouseName: '본사 창고',
   currentStock: item.currentStock,
   safetyStock: item.safetyStock,
-  availableStock: item.currentStock - Math.floor(item.currentStock * 0.1), // 10% 예약
+  availableStock: item.currentStock - Math.floor(item.currentStock * 0.1),
   reservedStock: Math.floor(item.currentStock * 0.1),
   lastUpdatedAt: item.updatedAt,
 }))
+
+/**
+ * Mock Inbounds 데이터
+ */
+export const MOCK_INBOUNDS: Inbound[] = [
+  {
+    id: 'INB-001',
+    inboundCode: 'INB-2024-001',
+    supplierId: 'SUP-001',
+    supplierName: '(주)테크서플라이',
+    warehouseId: 'WH-001',
+    warehouseName: '본사 창고',
+    requestedDate: '2024-09-20',
+    receivedDate: '2024-09-22',
+    status: 'received',
+    totalAmount: 1250000,
+    lines: [
+      {
+        id: 'LINE-001',
+        itemId: '1',
+        itemCode: 'ITEM-001',
+        itemName: '노트북 거치대 (화이트)',
+        quantity: 50,
+        unitPrice: 15000,
+        totalPrice: 750000,
+      },
+      {
+        id: 'LINE-002',
+        itemId: '3',
+        itemCode: 'ITEM-003',
+        itemName: '기계식 키보드 RGB (화이트)',
+        quantity: 10,
+        unitPrice: 45000,
+        totalPrice: 450000,
+        note: '신제품 입고',
+      },
+    ],
+    note: '9월 정기 입고',
+    createdBy: 'user-001',
+    createdAt: '2024-09-18T09:00:00Z',
+    updatedAt: '2024-09-22T14:30:00Z',
+  },
+  {
+    id: 'INB-002',
+    inboundCode: 'INB-2024-002',
+    supplierId: 'SUP-002',
+    supplierName: '글로벌전자',
+    warehouseId: 'WH-001',
+    warehouseName: '본사 창고',
+    requestedDate: '2024-09-25',
+    status: 'approved',
+    totalAmount: 960000,
+    lines: [
+      {
+        id: 'LINE-003',
+        itemId: '2',
+        itemCode: 'ITEM-002',
+        itemName: '무선 마우스 (블랙)',
+        quantity: 80,
+        unitPrice: 12000,
+        totalPrice: 960000,
+      },
+    ],
+    createdBy: 'user-001',
+    createdAt: '2024-09-23T10:30:00Z',
+    updatedAt: '2024-09-24T11:20:00Z',
+  },
+  {
+    id: 'INB-003',
+    inboundCode: 'INB-2024-003',
+    supplierId: 'SUP-001',
+    supplierName: '(주)테크서플라이',
+    warehouseId: 'WH-001',
+    warehouseName: '본사 창고',
+    requestedDate: '2024-10-01',
+    status: 'pending',
+    totalAmount: 1400000,
+    lines: [
+      {
+        id: 'LINE-004',
+        itemId: '4',
+        itemCode: 'ITEM-004',
+        itemName: '모니터 암 (싱글)',
+        quantity: 40,
+        unitPrice: 35000,
+        totalPrice: 1400000,
+      },
+    ],
+    note: '긴급 발주',
+    createdBy: 'user-002',
+    createdAt: '2024-09-28T15:00:00Z',
+    updatedAt: '2024-09-28T15:00:00Z',
+  },
+  {
+    id: 'INB-004',
+    inboundCode: 'INB-2024-004',
+    supplierId: 'SUP-003',
+    supplierName: '오피스마켓',
+    warehouseId: 'WH-001',
+    warehouseName: '본사 창고',
+    requestedDate: '2024-10-05',
+    status: 'draft',
+    totalAmount: 1650000,
+    lines: [
+      {
+        id: 'LINE-005',
+        itemId: '5',
+        itemCode: 'ITEM-005',
+        itemName: '책상 정리 세트 (베이지)',
+        quantity: 30,
+        unitPrice: 25000,
+        totalPrice: 750000,
+      },
+      {
+        id: 'LINE-006',
+        itemId: '7',
+        itemCode: 'ITEM-007',
+        itemName: '블루투스 스피커 (화이트)',
+        quantity: 30,
+        unitPrice: 28000,
+        totalPrice: 840000,
+      },
+    ],
+    createdBy: 'user-001',
+    createdAt: '2024-10-02T09:00:00Z',
+    updatedAt: '2024-10-02T09:00:00Z',
+  },
+  {
+    id: 'INB-005',
+    inboundCode: 'INB-2024-005',
+    supplierId: 'SUP-002',
+    supplierName: '글로벌전자',
+    warehouseId: 'WH-001',
+    warehouseName: '본사 창고',
+    requestedDate: '2024-09-15',
+    receivedDate: '2024-09-17',
+    status: 'received',
+    totalAmount: 1824000,
+    lines: [
+      {
+        id: 'LINE-007',
+        itemId: '6',
+        itemCode: 'ITEM-006',
+        itemName: 'USB-C 허브 (그레이)',
+        quantity: 100,
+        unitPrice: 18000,
+        totalPrice: 1800000,
+      },
+    ],
+    createdBy: 'user-002',
+    createdAt: '2024-09-13T11:00:00Z',
+    updatedAt: '2024-09-17T16:00:00Z',
+  },
+]
 
 /**
  * Mock 데이터 필터링 유틸리티
