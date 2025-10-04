@@ -3,6 +3,7 @@ import { User, LoginCredentials, AuthState } from '@/shared/types/auth'
 import { api } from '@/shared/services/apiClient'
 import { Permission, hasPermission } from '@/shared/constants/roles'
 import { AuthContext } from '@/app/contexts/AuthContext'
+import apiClient from '@/shared/services/apiClient'
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<AuthState>({
@@ -12,14 +13,40 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   })
 
   /**
-   * 로그인
+   * 로그인 (engine-core OAuth2 형식)
    */
   const login = async (creds: LoginCredentials) => {
     try {
-      const response = await api.post<{ user: User }>('/api/v1/auth/login', creds)
+      // engine-core는 username/password 형식 사용
+      const formData = new URLSearchParams()
+      formData.append('username', creds.email) // email을 username으로 사용
+      formData.append('password', creds.password_hash) // password_hash를 password로 사용
+
+      const response = await apiClient.post<{
+        access_token: string
+        token_type: string
+        role: string
+        user_id: string
+      }>('/api/v1/auth/token', formData, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      })
+
+      // 토큰 저장
+      localStorage.setItem('access_token', response.data.access_token)
+
+      // User 객체 생성
+      const user: User = {
+        id: response.data.user_id,
+        email: response.data.user_id, // username을 email로 사용
+        role: response.data.role,
+      }
+
+      localStorage.setItem('user', JSON.stringify(user))
 
       setState({
-        user: response.user,
+        user,
         isAuthenticated: true,
         isLoading: false,
       })
@@ -42,6 +69,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } catch (err) {
       console.error('Logout error:', err)
     } finally {
+      // 로컬스토리지 클리어
+      localStorage.removeItem('access_token')
+      localStorage.removeItem('user')
+
       setState({
         user: null,
         isAuthenticated: false,
@@ -76,7 +107,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
    */
   const checkPermission = (perm: Permission): boolean => {
     if (!state.user) return false
-    return hasPermission(state.user.roles, perm)
+    // engine-core는 단일 'role' 필드 사용
+    return hasPermission(state.user.role, perm)
   }
 
   /**

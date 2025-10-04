@@ -44,9 +44,11 @@ export type Permission = keyof typeof PERMISSIONS
 /**
  * 권한 체크 헬퍼
  */
-export function hasPermission(userRoles: UserRole[], permission: Permission): boolean {
+export function hasPermission(userRole: string | string[], permission: Permission): boolean {
   const allowedRoles = PERMISSIONS[permission]
-  return userRoles.some((role) => allowedRoles.includes(role))
+  // engine-core는 단일 role 사용, 기존 배열도 호환
+  const roles = Array.isArray(userRole) ? userRole : [userRole]
+  return roles.some((role) => allowedRoles.includes(role as UserRole))
 }
 
 /**

@@ -14,13 +14,16 @@ const DashboardPage = lazy(() => import('@/pages/DashboardPage'))
 
 // Items
 const ItemsPage = lazy(() => import('@/pages/items/ItemsPage'))
+const ItemsPageReal = lazy(() => import('@/pages/items/ItemsPageReal'))
 const ItemDetailPage = lazy(() => import('@/pages/items/ItemDetailPage'))
 
 // Stocks
 const StocksPage = lazy(() => import('@/pages/stocks/StocksPage'))
+const StocksPageReal = lazy(() => import('@/pages/stocks/StocksPageReal'))
 
 // Inbounds
 const InboundsPage = lazy(() => import('@/pages/inbounds/InboundsPage'))
+const InboundsPageReal = lazy(() => import('@/pages/inbounds/InboundsPageReal'))
 const InboundDetailPage = lazy(() => import('@/pages/inbounds/InboundDetailPage'))
 
 // Outbounds
@@ -99,6 +102,18 @@ export const router = createBrowserRouter([
     ),
   },
   {
+    path: '/items-real',
+    element: (
+      <ProtectedRoute>
+        <MainLayout>
+          <Suspense fallback={<LoadingFallback />}>
+            <ItemsPageReal />
+          </Suspense>
+        </MainLayout>
+      </ProtectedRoute>
+    ),
+  },
+  {
     path: '/items/:id',
     element: (
       <ProtectedRoute requiredPermission="ITEMS_VIEW">
@@ -123,12 +138,36 @@ export const router = createBrowserRouter([
     ),
   },
   {
+    path: '/stocks-real',
+    element: (
+      <ProtectedRoute>
+        <MainLayout>
+          <Suspense fallback={<LoadingFallback />}>
+            <StocksPageReal />
+          </Suspense>
+        </MainLayout>
+      </ProtectedRoute>
+    ),
+  },
+  {
     path: '/inbounds',
     element: (
       <ProtectedRoute requiredPermission="INBOUNDS_VIEW">
         <MainLayout>
           <Suspense fallback={<LoadingFallback />}>
             <InboundsPage />
+          </Suspense>
+        </MainLayout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/inbounds-real',
+    element: (
+      <ProtectedRoute>
+        <MainLayout>
+          <Suspense fallback={<LoadingFallback />}>
+            <InboundsPageReal />
           </Suspense>
         </MainLayout>
       </ProtectedRoute>

@@ -8,32 +8,32 @@ import { Package, Truck, TruckIcon, BarChart3 } from 'lucide-react'
  * 주요 지표 및 최근 활동 표시
  */
 export default function DashboardPage() {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'modules'])
 
   const stats = [
     {
-      title: t('modules.items.title'),
+      title: t('modules:items.title'),
       value: '1,234',
       description: 'Total items in inventory',
       icon: Package,
       color: 'text-blue-500',
     },
     {
-      title: t('modules.stocks.title'),
+      title: t('modules:stocks.title'),
       value: '₩45.6M',
       description: 'Total stock value',
       icon: BarChart3,
       color: 'text-green-500',
     },
     {
-      title: t('modules.inbounds.title'),
+      title: t('modules:inbounds.title'),
       value: '28',
       description: 'Pending inbounds',
       icon: Truck,
       color: 'text-purple-500',
     },
     {
-      title: t('modules.outbounds.title'),
+      title: t('modules:outbounds.title'),
       value: '42',
       description: 'Pending outbounds',
       icon: TruckIcon,
@@ -44,7 +44,7 @@ export default function DashboardPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">{t('common.dashboard')}</h1>
+        <h1 className="text-3xl font-bold tracking-tight">{t('dashboard')}</h1>
         <p className="text-muted-foreground">Overview of your business operations</p>
       </div>
 

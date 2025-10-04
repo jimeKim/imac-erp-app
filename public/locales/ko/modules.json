@@ -7,6 +7,8 @@
     "title": "상품 관리",
     "list": "상품 목록",
     "detail": "상품 상세",
+    "create": "상품 등록",
+    "searchPlaceholder": "상품명 또는 SKU 검색...",
     "itemCode": "상품코드",
     "itemName": "상품명",
     "color": "색상",
@@ -14,21 +16,67 @@
     "type": "유형",
     "price": "가격",
     "stock": "재고",
-    "status": "상태"
+    "status": "상태",
+    "table": {
+      "itemName": "상품명",
+      "category": "카테고리",
+      "uom": "단위",
+      "cost": "단가",
+      "quantity": "재고",
+      "status": "상태"
+    },
+    "empty": {
+      "title": "등록된 상품이 없습니다",
+      "message": "새 상품을 등록하여 시작하세요"
+    },
+    "error": {
+      "loadFailed": "상품 데이터를 불러올 수 없습니다"
+    },
+    "totalItems": "총 {{count}}개의 상품"
   },
   "stocks": {
     "title": "재고 관리",
     "currentStock": "현재 재고",
     "safetyStock": "안전 재고",
     "stockAlert": "재고 경고",
-    "warehouse": "창고"
+    "warehouse": "창고",
+    "searchPlaceholder": "SKU 또는 품목명 검색...",
+    "table": {
+      "itemName": "품목명",
+      "warehouse": "창고",
+      "uom": "단위",
+      "quantity": "재고량",
+      "status": "상태"
+    },
+    "empty": {
+      "title": "재고 항목이 없습니다",
+      "message": "재고가 등록되면 여기에 표시됩니다"
+    },
+    "error": {
+      "loadFailed": "재고 데이터를 불러올 수 없습니다"
+    }
   },
   "inbounds": {
     "title": "입고 관리",
     "inboundCode": "입고코드",
     "supplier": "공급처",
     "requestedDate": "요청일자",
-    "status": "상태"
+    "status": "상태",
+    "searchPlaceholder": "SKU 또는 품목명 검색...",
+    "table": {
+      "itemName": "품목명",
+      "supplier": "공급처",
+      "quantity": "수량",
+      "unitCost": "단가",
+      "status": "상태"
+    },
+    "empty": {
+      "title": "입고 항목이 없습니다",
+      "message": "입고 항목이 등록되면 여기에 표시됩니다"
+    },
+    "error": {
+      "loadFailed": "입고 데이터를 불러올 수 없습니다"
+    }
   },
   "outbounds": {
     "title": "출고 관리",

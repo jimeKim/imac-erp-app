@@ -19,7 +19,7 @@ import { useTranslation } from 'react-i18next'
  * - 에러 토스트 표시
  */
 export default function LoginPage() {
-  const { t } = useTranslation()
+  const { t } = useTranslation('common')
   const navigate = useNavigate()
   const { login } = useAuth()
   const [email, setEmail] = useState('')
@@ -45,7 +45,7 @@ export default function LoginPage() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{t('common.login')}</CardTitle>
+        <CardTitle>{t('login')}</CardTitle>
         <CardDescription>Enter your credentials to access the system</CardDescription>
       </CardHeader>
       <CardContent>
@@ -62,10 +62,12 @@ export default function LoginPage() {
             </label>
             <input
               id="email"
-              type="email"
+              type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full rounded-md border bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              placeholder="admin"
+              autoComplete="username"
               required
             />
           </div>
@@ -85,7 +87,7 @@ export default function LoginPage() {
           </div>
 
           <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading ? 'Loading...' : t('common.login')}
+            {isLoading ? 'Loading...' : t('login')}
           </Button>
         </form>
 

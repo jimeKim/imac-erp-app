@@ -62,6 +62,7 @@ API Docs: http://localhost:3000/docs
 ## API 엔드포인트
 
 ### Items
+
 - `GET /api/v1/items` - 목록 조회
 - `GET /api/v1/items/{id}` - 상세 조회
 - `POST /api/v1/items` - 생성 (staff+)
@@ -69,9 +70,11 @@ API Docs: http://localhost:3000/docs
 - `DELETE /api/v1/items/{id}` - 삭제 (manager)
 
 ### Stocks
+
 - `GET /api/v1/stocks` - 재고 현황 조회
 
 ### Outbounds
+
 - `GET /api/v1/outbounds` - 목록 조회
 - `GET /api/v1/outbounds/{id}` - 상세 조회
 - `POST /api/v1/outbounds` - 생성 (staff+)
@@ -82,6 +85,7 @@ API Docs: http://localhost:3000/docs
 - `DELETE /api/v1/outbounds/{id}` - 취소 (owner/manager)
 
 ### Auth
+
 - `POST /api/v1/auth/login` - 로그인
 - `POST /api/v1/auth/logout` - 로그아웃
 - `GET /api/v1/auth/me` - 현재 사용자 정보
@@ -127,4 +131,3 @@ backend/
 3. ⏳ Items API 구현
 4. ⏳ Outbounds API 구현
 5. ⏳ 프론트엔드 API 클라이언트 연동
-

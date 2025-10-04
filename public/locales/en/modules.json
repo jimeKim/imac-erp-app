@@ -7,6 +7,8 @@
     "title": "Item Management",
     "list": "Item List",
     "detail": "Item Detail",
+    "create": "Create Item",
+    "searchPlaceholder": "Search by item name or SKU...",
     "itemCode": "Item Code",
     "itemName": "Item Name",
     "color": "Color",
@@ -14,21 +16,67 @@
     "type": "Type",
     "price": "Price",
     "stock": "Stock",
-    "status": "Status"
+    "status": "Status",
+    "table": {
+      "itemName": "Item Name",
+      "category": "Category",
+      "uom": "UOM",
+      "cost": "Cost",
+      "quantity": "Quantity",
+      "status": "Status"
+    },
+    "empty": {
+      "title": "No items found",
+      "message": "Start by creating a new item"
+    },
+    "error": {
+      "loadFailed": "Failed to load items"
+    },
+    "totalItems": "Total {{count}} items"
   },
   "stocks": {
     "title": "Stock Management",
     "currentStock": "Current Stock",
     "safetyStock": "Safety Stock",
     "stockAlert": "Stock Alert",
-    "warehouse": "Warehouse"
+    "warehouse": "Warehouse",
+    "searchPlaceholder": "Search by SKU or item name...",
+    "table": {
+      "itemName": "Item Name",
+      "warehouse": "Warehouse",
+      "uom": "UOM",
+      "quantity": "Quantity",
+      "status": "Status"
+    },
+    "empty": {
+      "title": "No stock items",
+      "message": "Stock items will appear here when available"
+    },
+    "error": {
+      "loadFailed": "Failed to load stock data"
+    }
   },
   "inbounds": {
     "title": "Inbound Management",
     "inboundCode": "Inbound Code",
     "supplier": "Supplier",
     "requestedDate": "Requested Date",
-    "status": "Status"
+    "status": "Status",
+    "searchPlaceholder": "Search by SKU or item name...",
+    "table": {
+      "itemName": "Item Name",
+      "supplier": "Supplier",
+      "quantity": "Quantity",
+      "unitCost": "Unit Cost",
+      "status": "Status"
+    },
+    "empty": {
+      "title": "No inbound items",
+      "message": "Inbound items will appear here when available"
+    },
+    "error": {
+      "loadFailed": "Failed to load inbound data"
+    }
   },
   "outbounds": {
     "title": "Outbound Management",

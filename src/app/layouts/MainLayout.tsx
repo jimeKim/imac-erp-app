@@ -1,8 +1,20 @@
-import { ReactNode } from 'react'
+import { ReactNode, useState } from 'react'
 import { useAuth } from '@/shared/hooks/useAuth'
 import { useLanguage } from '@/shared/hooks/useLanguage'
 import { Button } from '@/shared/components/ui'
-import { Menu, LogOut, User } from 'lucide-react'
+import {
+  LogOut,
+  User,
+  Package,
+  TruckIcon,
+  Truck,
+  Search,
+  ChevronDown,
+  ChevronRight,
+  PlusCircle,
+  List,
+} from 'lucide-react'
+import { Link, useLocation } from 'react-router-dom'
 
 interface MainLayoutProps {
   children: ReactNode
@@ -12,14 +24,15 @@ interface MainLayoutProps {
  * 메인 레이아웃
  *
  * 인증된 사용자를 위한 레이아웃으로:
- * - 상단 네비게이션 바 (로고, 사용자 정보, 로그아웃)
- * - 사이드바 (모바일에서는 토글)
+ * - 상단 네비게이션 바 (로고, 메뉴, 사용자 정보, 로그아웃)
  * - 메인 콘텐츠 영역
  * - 하단 푸터
  */
 export function MainLayout({ children }: MainLayoutProps) {
   const { user, logout } = useAuth()
   const { currentLanguage, changeLanguage, languages } = useLanguage()
+  const location = useLocation()
+  const [isItemsExpanded, setIsItemsExpanded] = useState(true)
 
   const handleLogout = async () => {
     try {
@@ -29,20 +42,18 @@ export function MainLayout({ children }: MainLayoutProps) {
     }
   }
 
+  const isActive = (path: string) => location.pathname === path
+  const isItemsActive = isActive('/items-real') || isActive('/items/create')
+
   return (
     <div className="flex min-h-screen flex-col">
-      {/* 상단 네비게이션 */}
+      {/* 상단 헤더 */}
       <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between px-4">
-          {/* 좌측: 로고 + 메뉴 버튼 */}
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" className="md:hidden">
-              <Menu className="h-5 w-5" />
-            </Button>
-            <div className="flex items-center gap-2">
-              <h1 className="text-xl font-bold">ERP System</h1>
-            </div>
-          </div>
+          {/* 좌측: 로고 */}
+          <Link to="/dashboard" className="flex items-center gap-2">
+            <h1 className="text-xl font-bold">ERP System</h1>
+          </Link>
 
           {/* 우측: 언어 선택 + 사용자 메뉴 */}
           <div className="flex items-center gap-2">
@@ -69,7 +80,7 @@ export function MainLayout({ children }: MainLayoutProps) {
                   <User className="h-4 w-4 text-muted-foreground" />
                   <span className="text-sm font-medium">{user.fullName || user.email}</span>
                   <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
-                    {user.roles[0]}
+                    {user.role}
                   </span>
                 </div>
 
@@ -82,16 +93,101 @@ export function MainLayout({ children }: MainLayoutProps) {
         </div>
       </header>
 
-      {/* 메인 콘텐츠 */}
+      {/* 메인 콘텐츠 (좌측 사이드바 + 콘텐츠) */}
       <div className="flex flex-1">
-        {/* 사이드바 (향후 구현) */}
-        {/* <aside className="hidden w-64 border-r bg-background md:block">
-          <nav className="space-y-2 p-4">
-            <Button variant="ghost" className="w-full justify-start">
-              Dashboard
-            </Button>
+        {/* 좌측 사이드바 */}
+        <aside className="w-64 border-r bg-white">
+          <nav className="space-y-1 p-4">
+            {/* 상품 관리 (확장 가능) */}
+            <div>
+              <button
+                onClick={() => setIsItemsExpanded(!isItemsExpanded)}
+                className={`flex w-full items-center justify-between rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                  isItemsActive
+                    ? 'bg-primary/10 text-primary'
+                    : 'hover:bg-accent hover:text-accent-foreground'
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <Package className="h-4 w-4" />
+                  상품 관리
+                </div>
+                {isItemsExpanded ? (
+                  <ChevronDown className="h-4 w-4" />
+                ) : (
+                  <ChevronRight className="h-4 w-4" />
+                )}
+              </button>
+
+              {/* 하위 메뉴 */}
+              {isItemsExpanded && (
+                <div className="ml-4 mt-1 space-y-1 border-l pl-3">
+                  <Link
+                    to="/items/create"
+                    className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm transition-colors ${
+                      isActive('/items/create')
+                        ? 'bg-primary text-primary-foreground'
+                        : 'hover:bg-accent hover:text-accent-foreground'
+                    }`}
+                  >
+                    <PlusCircle className="h-4 w-4" />
+                    상품 등록
+                  </Link>
+                  <Link
+                    to="/items-real"
+                    className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm transition-colors ${
+                      isActive('/items-real')
+                        ? 'bg-primary text-primary-foreground'
+                        : 'hover:bg-accent hover:text-accent-foreground'
+                    }`}
+                  >
+                    <List className="h-4 w-4" />
+                    상품 조회
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            {/* 입고 관리 */}
+            <Link
+              to="/inbounds-real"
+              className={`flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                isActive('/inbounds-real')
+                  ? 'bg-primary text-primary-foreground'
+                  : 'hover:bg-accent hover:text-accent-foreground'
+              }`}
+            >
+              <Truck className="h-4 w-4" />
+              입고 관리
+            </Link>
+
+            {/* 출고 관리 */}
+            <Link
+              to="/outbounds"
+              className={`flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                isActive('/outbounds')
+                  ? 'bg-primary text-primary-foreground'
+                  : 'hover:bg-accent hover:text-accent-foreground'
+              }`}
+            >
+              <TruckIcon className="h-4 w-4" />
+              출고 관리
+            </Link>
+
+            {/* 조회 */}
+            <Link
+              to="/stocks-real"
+              className={`flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                isActive('/stocks-real')
+                  ? 'bg-primary text-primary-foreground'
+                  : 'hover:bg-accent hover:text-accent-foreground'
+              }`}
+            >
+              <Search className="h-4 w-4" />
+              조회 (재고)
+            </Link>
           </nav>
-        </aside> */}
+        </aside>
 
         {/* 메인 영역 */}
         <main className="flex-1 overflow-y-auto bg-muted/20">

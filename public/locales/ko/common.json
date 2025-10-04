@@ -11,18 +11,21 @@
     "rememberMe": "로그인 유지",
     "forgotPassword": "비밀번호 찾기"
   },
+  "dashboard": "대시보드",
   "common": {
+    "login": "로그인",
     "save": "저장",
     "cancel": "취소",
     "delete": "삭제",
     "edit": "수정",
     "create": "생성",
     "search": "검색",
+    "searchFilter": "검색 및 필터",
     "filter": "필터",
     "export": "내보내기",
     "import": "가져오기",
     "refresh": "새로고침",
-    "loading": "로딩 중...",
+    "loading": "로딩 중",
     "noData": "데이터가 없습니다",
     "error": "오류가 발생했습니다",
     "success": "성공",
@@ -31,7 +34,14 @@
     "next": "다음",
     "previous": "이전",
     "submit": "제출",
-    "reset": "초기화"
+    "reset": "초기화",
+    "action": "작업",
+    "view": "보기",
+    "viewDetail": "상세보기",
+    "retry": "다시 시도",
+    "createdAt": "생성일",
+    "updatedAt": "수정일",
+    "page": "{{currentPage}} / {{totalPages}} 페이지"
   },
   "validation": {
     "required": "필수 입력 항목입니다",

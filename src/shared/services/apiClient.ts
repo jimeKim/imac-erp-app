@@ -21,11 +21,11 @@ apiClient.interceptors.request.use(
     // 요청 시작 시간 기록 (디버깅용)
     config.headers['X-Request-Start-Time'] = Date.now().toString()
 
-    // Bearer 토큰 방식을 사용하는 경우 (선택사항)
-    // const token = localStorage.getItem('accessToken')
-    // if (token) {
-    //   config.headers.Authorization = `Bearer ${token}`
-    // }
+    // Bearer 토큰 추가 (engine-core JWT 인증)
+    const token = localStorage.getItem('access_token')
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
 
     return config
   },

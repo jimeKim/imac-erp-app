@@ -11,18 +11,21 @@
     "rememberMe": "Remember Me",
     "forgotPassword": "Forgot Password"
   },
+  "dashboard": "Dashboard",
   "common": {
+    "login": "Login",
     "save": "Save",
     "cancel": "Cancel",
     "delete": "Delete",
     "edit": "Edit",
     "create": "Create",
     "search": "Search",
+    "searchFilter": "Search & Filter",
     "filter": "Filter",
     "export": "Export",
     "import": "Import",
     "refresh": "Refresh",
-    "loading": "Loading...",
+    "loading": "Loading",
     "noData": "No Data",
     "error": "An error occurred",
     "success": "Success",
@@ -31,7 +34,14 @@
     "next": "Next",
     "previous": "Previous",
     "submit": "Submit",
-    "reset": "Reset"
+    "reset": "Reset",
+    "action": "Action",
+    "view": "View",
+    "viewDetail": "View Details",
+    "retry": "Retry",
+    "createdAt": "Created At",
+    "updatedAt": "Updated At",
+    "page": "Page {{currentPage}} / {{totalPages}}"
   },
   "validation": {
     "required": "This field is required",

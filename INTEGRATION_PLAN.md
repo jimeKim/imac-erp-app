@@ -3,11 +3,11 @@
 ## 현재 상황
 
 ### ✅ 완료된 작업
+
 1. **erp-app (프론트엔드)**: Phase 0 + Phase 1 MVP 완료
    - React 18 + TypeScript + Vite
    - Items, Stocks, Inbounds, Outbounds 페이지
    - Mock API 기반
-   
 2. **erp-engine-system (백엔드)**: 이미 구축 완료
    - FastAPI + Python
    - Items, Stocks, Inbounds API 존재
@@ -23,12 +23,14 @@
 **기존 engine-core API를 그대로 사용하여 erp-app 연결**
 
 #### 장점:
+
 - ✅ 백엔드가 이미 완성되어 있음
 - ✅ Supabase 연동 완료
 - ✅ 인증 시스템 있음
 - ✅ Items, Stocks API 이미 구현됨
 
 #### 단점:
+
 - ⚠️ API 계약 확인 필요
 - ⚠️ Outbounds API 추가 필요 (engine-core에 없음)
 
@@ -51,6 +53,7 @@ open http://localhost:8000/api/docs
 ```
 
 #### 확인 사항:
+
 - [ ] Items API 엔드포인트
 - [ ] Stocks API 엔드포인트
 - [ ] Inbounds API 엔드포인트
@@ -72,6 +75,7 @@ VITE_API_TIMEOUT_MS=15000
 #### 2. API 클라이언트 수정
 
 **현재 구조**:
+
 ```typescript
 // src/shared/services/itemApi.ts
 const USE_MOCK = import.meta.env.VITE_ENABLE_MOCK_API !== 'false'
@@ -84,6 +88,7 @@ if (USE_MOCK) {
 ```
 
 **수정 방향**:
+
 1. `USE_MOCK = false` 설정
 2. engine-core API 스키마에 맞춰 Request/Response 수정
 3. 인증 토큰 헤더 추가
@@ -94,7 +99,7 @@ if (USE_MOCK) {
 // engine-core API 응답 구조에 맞춰 수정
 interface ItemResponse {
   id: string
-  item_code: string  // snake_case
+  item_code: string // snake_case
   name: string
   // ...
 }
@@ -151,10 +156,12 @@ app.include_router(outbounds_router)
 **방금 만든 /Users/kjimi/erp-app/backend 사용**
 
 #### 장점:
+
 - ✅ 프론트엔드와 완벽히 매칭
 - ✅ Outbounds API 이미 설계됨
 
 #### 단점:
+
 - ❌ 모든 API를 새로 구현해야 함
 - ❌ 시간이 더 걸림
 
@@ -165,11 +172,13 @@ app.include_router(outbounds_router)
 ### **Option A 선택** (engine-core 활용)
 
 **이유**:
+
 1. 백엔드 80% 완성되어 있음
 2. Supabase 연동 이미 완료
 3. Outbounds API만 추가하면 됨
 
 **예상 시간**:
+
 - Phase 2A-1: 1시간 (API 분석)
 - Phase 2A-2: 2-3시간 (프론트엔드 연동)
 - Phase 2A-3: 4-6시간 (Outbounds API 추가)
@@ -219,22 +228,26 @@ npm run dev
 **어떻게 진행하시겠습니까?**
 
 **A. engine-core API 분석 및 실행** (추천 🔥)
+
 - → engine-core 실행
 - → API 문서 확인
 - → Items API 테스트
 - → 프론트엔드 연동 계획 수립
 
 **B. Outbounds API 먼저 추가**
+
 - → engine-core에 Outbounds API 구현
 - → Supabase RPC 함수 활용
 - → 프론트엔드 연동
 
 **C. 새 백엔드 완성 후 연동**
+
 - → /Users/kjimi/erp-app/backend 완성
 - → 모든 API 구현
 - → 프론트엔드 연동
 
 **D. 하이브리드 접근**
+
 - → Items/Stocks는 engine-core 사용
 - → Outbounds는 새 백엔드 사용
 - → 점진적 통합
@@ -244,4 +257,3 @@ npm run dev
 저는 **Option A (engine-core 활용)**를 강력히 추천합니다! 🚀
 
 지금 바로 시작하시겠습니까?
-
