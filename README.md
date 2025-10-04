@@ -38,22 +38,34 @@
 
 ## 🚀 Quick Start
 
+### 백엔드 실행 (engine-core)
+
 ```bash
-# 의존성 설치
+cd /Users/kjimi/erp-engine-system/engine-core
+source venv/bin/activate
+uvicorn app.main:app --reload --port 8000
+```
+
+### 프론트엔드 실행
+
+```bash
+cd /Users/kjimi/erp-app
 npm install
-
-# 환경 변수 설정
-cp .env.example .env
-# .env 파일 수정 (VITE_API_BASE_URL 등)
-
-# 개발 서버 실행 (http://localhost:5173)
 npm run dev
+```
 
-# 빌드
-npm run build
+### 로그인
 
-# 프리뷰
-npm run preview
+- **URL**: http://localhost:5175
+- **ID**: admin
+- **PW**: admin
+
+### 환경 변수
+
+```bash
+# .env 파일 확인
+VITE_API_BASE_URL=http://localhost:8000
+VITE_APP_NAME=ERP 관리 시스템
 ```
 
 ## 📜 Scripts
@@ -236,13 +248,25 @@ npm run e2e:headed        # 브라우저 보이기
 - Axios 인터셉터로 에러 처리
 - 다국어 에러 메시지 매핑
 
-## 📝 Next Steps (Phase 1)
+## ✅ 완료된 기능 (Phase 1 완료)
 
-- [ ] 16: API 계약 스냅샷 (OpenAPI)
-- [ ] 17: Items/Stocks API 연결
-- [ ] 18: Inbounds API 연결
-- [ ] 19: Outbounds 등록 폼 구현
-- [ ] 20: 승인/커밋 버튼 RBAC 연동
+- ✅ Items 조회 (19개 상품, 페이지네이션, 검색)
+- ✅ Stocks 조회 (18개 재고, 창고별 필터)
+- ✅ Inbounds 조회 (입고 목록, 상태별 필터)
+- ✅ JWT 인증 시스템 (admin/admin)
+- ✅ 좌측 사이드바 네비게이션
+- ✅ 다국어 지원 (한/중/영)
+- ✅ engine-core 백엔드 완전 연동
+
+## 🔜 다음 작업 (Phase 2)
+
+- ⏳ **Outbounds API 연동** (가장 우선순위)
+  - 출고 생성/승인/커밋
+  - 상태 머신 로직
+  - 재고 차감 트랜잭션
+- ⏳ Items 생성/수정 폼
+- ⏳ 에러 복구 전략 (Retry, Offline)
+- ⏳ 프로덕션 환경 설정
 
 ## 📄 License
 
