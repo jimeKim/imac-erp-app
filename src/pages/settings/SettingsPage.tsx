@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { 
@@ -16,7 +17,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui
 
 interface SettingCategory {
   id: string
-  icon: React.ReactNode
+  icon: ReactNode
   path: string
   badge?: string
 }

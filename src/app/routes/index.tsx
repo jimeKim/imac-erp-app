@@ -13,15 +13,15 @@ const LoginPage = lazy(() => import('@/pages/auth/LoginPage'))
 const DashboardPage = lazy(() => import('@/pages/DashboardPage'))
 
 // Items
-const ItemsPage = lazy(() => import('@/pages/items/ItemsPage'))
-const ItemsPageReal = lazy(() => import('@/pages/items/ItemsPageReal'))
+// const ItemsPage = lazy(() => import('@/pages/items/ItemsPage'))
+// const ItemsPageReal = lazy(() => import('@/pages/items/ItemsPageReal'))
 const ItemsPageRealGrid = lazy(() => import('@/pages/items/ItemsPageRealGrid'))
 const ItemCreatePage = lazy(() => import('@/pages/items/ItemCreatePage'))
 const ItemDetailPage = lazy(() => import('@/pages/items/ItemDetailPage'))
 
 // Stocks
 const StocksPage = lazy(() => import('@/pages/stocks/StocksPage'))
-const StocksPageReal = lazy(() => import('@/pages/stocks/StocksPageReal'))
+// const StocksPageReal = lazy(() => import('@/pages/stocks/StocksPageReal'))
 const StocksPageGrid = lazy(() => import('@/pages/stocks/StocksPageGrid'))
 
 // Inbounds

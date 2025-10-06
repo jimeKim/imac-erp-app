@@ -45,12 +45,17 @@ export function useGridPersistence<T>(entityName: string, table: Table<T>) {
   }, [storageKey, table])
 
   // 상태 변경 시 자동 저장
+  // Note: table.getState() 반환 객체는 매 렌더링마다 새로 생성되므로
+  // dependency array에 직접 추가하면 무한 루프가 발생합니다.
+  // 따라서 값의 변경을 감지하기 위해 JSON.stringify를 사용합니다.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     try {
+      const currentState = table.getState()
       const state: GridPersistedState = {
-        columnVisibility: table.getState().columnVisibility,
-        sorting: table.getState().sorting,
-        pageSize: table.getState().pagination.pageSize,
+        columnVisibility: currentState.columnVisibility,
+        sorting: currentState.sorting,
+        pageSize: currentState.pagination.pageSize,
       }
 
       localStorage.setItem(storageKey, JSON.stringify(state))
@@ -59,8 +64,8 @@ export function useGridPersistence<T>(entityName: string, table: Table<T>) {
     }
   }, [
     storageKey,
-    table.getState().columnVisibility,
-    table.getState().sorting,
+    JSON.stringify(table.getState().columnVisibility),
+    JSON.stringify(table.getState().sorting),
     table.getState().pagination.pageSize,
   ])
 }

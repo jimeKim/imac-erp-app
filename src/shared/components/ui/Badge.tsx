@@ -1,6 +1,7 @@
+import type { HTMLAttributes } from 'react'
 import { cn } from '@/shared/utils/cn'
 
-interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
+interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
   variant?: 'default' | 'secondary' | 'outline' | 'destructive'
 }
 

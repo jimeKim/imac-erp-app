@@ -28,19 +28,18 @@ export function ColumnFilter<T>({ column, gridColumn, data }: ColumnFilterProps<
   }
 }
 
-/**
- * 텍스트 필터
- */
-function TextFilter<T>({ column }: { column: Column<T, unknown> }) {
-  return (
-    <input
-      value={(column.getFilterValue() ?? '') as string}
-      onChange={(e) => column.setFilterValue(e.target.value || undefined)}
-      placeholder="검색..."
-      className="h-7 w-full rounded border border-input bg-background px-2 text-xs placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-    />
-  )
-}
+// 텍스트 필터 (미사용 - ColumnFilterDropdown으로 대체)
+// 향후 참고용으로 유지
+// function _TextFilter<T>({ column }: { column: Column<T, unknown> }) {
+//   return (
+//     <input
+//       value={(column.getFilterValue() ?? '') as string}
+//       onChange={(e) => column.setFilterValue(e.target.value || undefined)}
+//       placeholder="검색..."
+//       className="h-7 w-full rounded border border-input bg-background px-2 text-xs placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+//     />
+//   )
+// }
 
 /**
  * 숫자 범위 필터
@@ -76,36 +75,35 @@ function NumberRangeFilter<T>({ column }: { column: Column<T, unknown> }) {
   )
 }
 
-/**
- * 선택형 필터 (다중 선택)
- */
-function SelectFilter<T>({
-  column,
-  options,
-}: {
-  column: Column<T, unknown>
-  options: Array<{ value: string; label: string }>
-}) {
-  const filterValue = (column.getFilterValue() ?? []) as string[]
-
-  return (
-    <div className="space-y-1 p-1">
-      {options.map((option) => (
-        <label key={option.value} className="flex items-center gap-2 text-xs hover:bg-accent rounded px-1 py-0.5 cursor-pointer">
-          <input
-            type="checkbox"
-            checked={filterValue.includes(option.value)}
-            onChange={(e) => {
-              const newValue = e.target.checked
-                ? [...filterValue, option.value]
-                : filterValue.filter((v) => v !== option.value)
-              column.setFilterValue(newValue.length ? newValue : undefined)
-            }}
-            className="h-3 w-3 rounded border-input"
-          />
-          <span className="flex-1">{option.label}</span>
-        </label>
-      ))}
-    </div>
-  )
-}
+// 선택형 필터 (다중 선택) (미사용 - ColumnFilterDropdown으로 대체)
+// 향후 참고용으로 유지
+// function _SelectFilter<T>({
+//   column,
+//   options,
+// }: {
+//   column: Column<T, unknown>
+//   options: Array<{ value: string; label: string }>
+// }) {
+//   const filterValue = (column.getFilterValue() ?? []) as string[]
+//
+//   return (
+//     <div className="space-y-1 p-1">
+//       {options.map((option) => (
+//         <label key={option.value} className="flex items-center gap-2 text-xs hover:bg-accent rounded px-1 py-0.5 cursor-pointer">
+//           <input
+//             type="checkbox"
+//             checked={filterValue.includes(option.value)}
+//             onChange={(e) => {
+//               const newValue = e.target.checked
+//                 ? [...filterValue, option.value]
+//                 : filterValue.filter((v) => v !== option.value)
+//               column.setFilterValue(newValue.length ? newValue : undefined)
+//             }}
+//             className="h-3 w-3 rounded border-input"
+//           />
+//           <span className="flex-1">{option.label}</span>
+//         </label>
+//       ))}
+//     </div>
+//   )
+// }

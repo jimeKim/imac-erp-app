@@ -46,7 +46,8 @@ export function AddBomComponentModal({
     }
     document.addEventListener('keydown', handleEscape)
     return () => document.removeEventListener('keydown', handleEscape)
-  }, [isOpen])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen]) // handleClose는 매 렌더링마다 재생성되므로 제외
 
   // 검색어로 필터링된 상품 목록
   const filteredItems = useMemo(() => {

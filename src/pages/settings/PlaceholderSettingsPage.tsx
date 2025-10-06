@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { ArrowLeft, Construction } from 'lucide-react'
@@ -5,7 +6,7 @@ import { Button, Card, CardContent, CardHeader, CardTitle } from '@/shared/compo
 
 interface PlaceholderSettingsPageProps {
   categoryKey: string
-  icon: React.ReactNode
+  icon: ReactNode
 }
 
 /**

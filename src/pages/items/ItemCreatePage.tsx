@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import type { ChangeEvent, FormEvent } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { ArrowLeft, Save } from 'lucide-react'
 import { Button, Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui'
@@ -24,7 +25,7 @@ export default function ItemCreatePage() {
   const navigate = useNavigate()
   const { toast } = useToast()
   const { t } = useTranslation(['modules', 'common'])
-  const { enabledTypes, filterEnabledTypes } = useItemTypeSettings()
+  const { filterEnabledTypes } = useItemTypeSettings()
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const [formData, setFormData] = useState<ItemFormData>({
@@ -40,7 +41,7 @@ export default function ItemCreatePage() {
 
   const [errors, setErrors] = useState<Partial<Record<keyof ItemFormData, string>>>({})
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
     
@@ -65,7 +66,7 @@ export default function ItemCreatePage() {
     return Object.keys(newErrors).length === 0
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
 
     if (!validate()) {

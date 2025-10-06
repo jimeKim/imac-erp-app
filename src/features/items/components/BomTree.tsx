@@ -5,7 +5,6 @@ import {
   ChevronDown,
   ChevronRight,
   PlusCircle,
-  Trash2,
   Info,
   AlertCircle,
 } from 'lucide-react'
