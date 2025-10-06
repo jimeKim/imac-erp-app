@@ -1,15 +1,30 @@
-# ERP System
+# 🏭 ERP System - iMac ERP
 
-> 기업 자원 관리 시스템 - React 18 + TypeScript + Vite
+> 제조업 특화 기업 자원 관리 시스템  
+> React 18 + TypeScript + FastAPI + Supabase
 
-[![Phase 0](https://img.shields.io/badge/Phase-0%20Complete-green.svg)](https://github.com)
+[![Phase 2](https://img.shields.io/badge/Phase-2%20Ready-brightgreen.svg)](https://github.com)
+[![Phase 3](https://img.shields.io/badge/Phase-3%20Planning-blue.svg)](https://github.com)
 [![React](https://img.shields.io/badge/React-18-blue.svg)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue.svg)](https://www.typescriptlang.org/)
-[![Vite](https://img.shields.io/badge/Vite-5.4-purple.svg)](https://vitejs.dev/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.118-green.svg)](https://fastapi.tiangolo.com/)
+[![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL-green.svg)](https://supabase.com/)
 
-## ✅ Phase 0 완료 (15/20 Todos)
+## 📍 현재 상태
 
-프론트엔드 기반 구축이 완료되었습니다. 이제 백엔드 API와 연결할 준비가 되었습니다.
+### ✅ Phase 2: BOM 구성품 추가 (배포 준비 완료)
+- **BomTree 컴포넌트**: 동적 트리 구조, Supabase 실시간 연동
+- **구성품 추가 모달**: RBAC 권한 체크, 중복/순환 참조 검증
+- **운영 안정화**: Go/No-Go 체크리스트, 모니터링 대시보드, E2E 테스트
+- **DB 제약**: `003_bom_constraints.sql` (UNIQUE, CHECK, 인덱스)
+- **배포 스크립트**: `deploy-phase2.sh`, `rollback-phase2.sh`
+- **배포 준비도**: 95% (DB 마이그레이션만 실행하면 100%)
+
+### 🎯 Phase 3: Excel Import (설계 완료, 개발 시작 예정)
+- **PRD**: 기능 요구사항, UI/UX, 기술 아키텍처 완료
+- **킥오프 미팅**: 2025-10-07 (월) 14:00 예정
+- **템플릿**: Excel Import 가이드, CSV 템플릿 준비 완료
+- **Sprint 계획**: 2주 (10/9 ~ 10/18)
 
 ## 📚 Tech Stack
 
@@ -23,14 +38,24 @@
 - **React Hook Form** + **Zod** (폼 검증)
 - **i18next** (다국어 지원: ko/zh/en)
 
-### API & Auth
+### Backend
+- **FastAPI 0.118** (Python 웹 프레임워크)
+- **Supabase** (PostgreSQL, Auth, Storage)
+- **Uvicorn** (ASGI 서버)
+- **Pydantic 2.11** (데이터 검증)
 
+### API & Auth
 - **Axios** (HTTP 클라이언트, 인터셉터)
-- **JWT** (HTTPOnly 쿠키 권장)
-- **RBAC** (역할 기반 접근 제어)
+- **JWT** (토큰 기반 인증)
+- **RBAC** (역할 기반 접근 제어: admin/manager/staff/readonly)
+
+### Advanced Features
+- **Excel Grid System** (TanStack Table v8)
+- **BOM 트리 구조** (재귀적 계층 구조)
+- **i18n** (한국어/영어/중국어 지원)
+- **설정 관리** (Item Type, Unit Settings)
 
 ### Code Quality
-
 - **ESLint** + **Prettier** (코드 포맷팅)
 - **Husky** + **lint-staged** (pre-commit 훅)
 - **Vitest** (단위 테스트)
@@ -61,33 +86,43 @@ uvicorn app.main:app --reload --port 8000
 ### 프로덕션 배포
 
 #### 서버 정보
-- **서버**: DigitalOcean (139.59.110.55)
-- **백엔드**: FastAPI + Supabase (포트 8000)
-- **프론트엔드**: React + Vite (포트 80)
+- **서버**: DigitalOcean Droplet (139.59.110.55)
+- **백엔드**: FastAPI + Supabase (`/opt/erp-backend`)
+- **프론트엔드**: React + Vite (`/var/www/erp-app`)
+- **웹서버**: Nginx (리버스 프록시)
 
-#### 자동 배포 (권장)
+#### Phase 2 배포 (BOM 기능)
 
 ```bash
-# 1. 환경 설정
-./setup-env.sh
+# 1. DB 마이그레이션 (Supabase Dashboard에서 실행)
+# → backend/supabase/migrations/003_bom_constraints.sql
 
-# 2. Supabase 프로젝트 생성 및 API 키 입력
-# backend/.env 파일에 Supabase 정보 입력
+# 2. 전체 배포 (자동화)
+./scripts/deploy-phase2.sh
 
-# 3. 전체 배포
-./deploy.sh
-
-# 4. 상태 확인
-./server-status.sh
+# 3. 롤백 (필요 시)
+./scripts/rollback-phase2.sh /opt/erp-backup/20251006-HHMMSS
 ```
 
 #### 빠른 재배포 (프론트엔드만)
 
 ```bash
-./quick-deploy.sh
+# 빌드 ID 포함하여 배포
+VITE_BUILD_ID=$(date +%s) npm run build
+scp -r dist/* root@139.59.110.55:/var/www/erp-app/
 ```
 
-자세한 배포 가이드는 [DEPLOYMENT.md](./DEPLOYMENT.md) 참조
+#### 배포 전 체크리스트
+
+```bash
+# Go/No-Go 체크리스트 실행
+# → docs/operations/go-no-go-checklist.md 참조
+
+# 모니터링 활성화
+ssh root@139.59.110.55 "journalctl -u erp-engine -f | grep BOM"
+```
+
+자세한 배포 가이드는 [DEPLOYMENT.md](./DEPLOYMENT.md) 및 [NEXT_ACTIONS.md](./docs/NEXT_ACTIONS.md) 참조
 
 ### 로그인
 
@@ -289,25 +324,84 @@ npm run e2e:headed        # 브라우저 보이기
 - Axios 인터셉터로 에러 처리
 - 다국어 에러 메시지 매핑
 
-## ✅ 완료된 기능 (Phase 1 완료)
+## ✅ 완료된 기능
 
-- ✅ Items 조회 (19개 상품, 페이지네이션, 검색)
-- ✅ Stocks 조회 (18개 재고, 창고별 필터)
-- ✅ Inbounds 조회 (입고 목록, 상태별 필터)
-- ✅ JWT 인증 시스템 (admin/admin)
-- ✅ 좌측 사이드바 네비게이션
+### Phase 1: 기본 CRUD (완료)
+- ✅ Items 조회/생성 (Excel Grid System)
+- ✅ Stocks 조회 (창고별 필터)
+- ✅ Inbounds 조회 (입고 목록)
+- ✅ JWT 인증 + RBAC (admin/manager/staff/readonly)
 - ✅ 다국어 지원 (한/중/영)
-- ✅ engine-core 백엔드 완전 연동
+- ✅ Supabase 백엔드 완전 연동
 
-## 🔜 다음 작업 (Phase 2)
+### Phase 2: BOM 구성품 추가 (배포 준비 완료)
+- ✅ BomTree 컴포넌트 (동적 트리 구조)
+- ✅ 구성품 추가 모달 (RBAC 권한 체크)
+- ✅ 중복/순환 참조 검증
+- ✅ DB 제약 조건 (UNIQUE, CHECK, 인덱스)
+- ✅ 배포 스크립트 (`deploy-phase2.sh`, `rollback-phase2.sh`)
+- ✅ Go/No-Go 체크리스트, 모니터링 대시보드, E2E 테스트
+- ✅ Excel Grid System (TanStack Table v8)
+- ✅ 설정 메뉴 (Item Type Settings, Unit Settings)
 
-- ⏳ **Outbounds API 연동** (가장 우선순위)
-  - 출고 생성/승인/커밋
-  - 상태 머신 로직
-  - 재고 차감 트랜잭션
-- ⏳ Items 생성/수정 폼
-- ⏳ 에러 복구 전략 (Retry, Offline)
-- ⏳ 프로덕션 환경 설정
+## 🔜 다음 작업
+
+### Phase 3: Excel Import (2주, 10/9 ~ 10/18)
+- ⏳ Excel 파일 업로드 (.xlsx, .xls)
+- ⏳ 미리보기 및 3단계 검증 (형식 → 데이터 → 비즈니스)
+- ⏳ 에러 리포트 다운로드
+- ⏳ 부분 성공 허용 (유효한 행만 반영)
+- ⏳ 감사 로그 (누가, 언제, 무엇을 업로드)
+
+### Phase 4: 고급 기능 (미정)
+- ⏳ BOM 버전 관리 (Draft/Active/Archived)
+- ⏳ Excel 일괄 수정/삭제
+- ⏳ 원가 계산 자동화
+- ⏳ Outbounds 승인 워크플로우
+
+## 📚 주요 문서
+
+### 운영 (Operations)
+- [📋 다음 실행 액션 가이드](./docs/NEXT_ACTIONS.md) ⭐ **시작하기 좋은 문서**
+- [✅ Go/No-Go 체크리스트](./docs/operations/go-no-go-checklist.md)
+- [📊 모니터링 대시보드](./docs/operations/monitoring-dashboard.md)
+- [🧪 E2E 테스트 시나리오](./docs/operations/e2e-test-scenarios.md)
+- [🔒 BOM 안정성 체크리스트](./docs/operations/bom-stability-checklist.md)
+
+### 기능 (Features)
+- [📄 Phase 3 Excel Import PRD](./docs/features/phase3-excel-import-prd.md)
+- [🌳 BOM 트리 구현 가이드](./docs/implementation/bom-tree-implementation.md)
+- [📊 Excel Grid System](./docs/features/excel-grid-system.md)
+- [⚙️ Item Type Settings](./docs/features/item-type-settings.md)
+
+### 아키텍처 (Architecture)
+- [🏗️ 시스템 아키텍처](./ARCHITECTURE.md)
+- [🔄 일관성 체크 리포트](./CONSISTENCY_REPORT.md)
+- [🔐 백엔드 개선안 v2](./docs/backend/bom-api-v2-feature-flag.md)
+
+### 배포 (Deployment)
+- [🚀 배포 가이드](./DEPLOYMENT.md)
+- [⚙️ 최종 설정 가이드](./FINAL_SETUP_GUIDE.md)
+- [🆘 복구 가이드](./RECOVERY.md)
+
+### 미팅 자료
+- [🎯 Phase 3 킥오프 미팅](./docs/meetings/phase3-kickoff-agenda.md)
+
+### 템플릿
+- [📊 Excel Import 가이드](./templates/bom-import-guide.md)
+- [📁 Excel Import 템플릿 (CSV)](./templates/bom-import-template.csv)
+
+## 🛠 스크립트
+
+### 배포
+- `./scripts/deploy-phase2.sh` - Phase 2 전체 배포 (자동화)
+- `./scripts/rollback-phase2.sh` - Phase 2 롤백
+- `./quick-deploy.sh` - 프론트엔드만 빠른 배포
+
+### 개발 지원
+- `./setup-env.sh` - 환경 설정
+- `./server-status.sh` - 서버 상태 확인
+- `./test-ssh.sh` - SSH 연결 테스트
 
 ## 📄 License
 
