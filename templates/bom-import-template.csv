@@ -1,0 +1,11 @@
+parent_code,child_code,quantity,unit,notes
+FG-001,MOD-LCD,1,EA,LCD 모듈
+FG-001,MOD-POWER,1,EA,전원 모듈 (SMPS)
+FG-001,PT-STAND,1,EA,모니터 스탠드
+FG-001,PKG-BOX,1,EA,포장 박스
+MOD-LCD,PT-PANEL,1,EA,액정 패널 27인치
+MOD-LCD,PT-BACKLIGHT,1,EA,백라이트 유닛
+MOD-LCD,PT-CONTROLLER,1,EA,LCD 컨트롤러
+MOD-POWER,PT-ACDC,1,EA,AC/DC 컨버터
+MOD-POWER,PT-CABLE,1,EA,전원 케이블
+MOD-POWER,PT-CONNECTOR,2,EA,전원 커넥터 (2개)

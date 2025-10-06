@@ -8,15 +8,49 @@
     "list": "상품 목록",
     "detail": "상품 상세",
     "create": "상품 등록",
+    "createDescription": "새로운 상품을 등록합니다",
+    "basicInfo": "기본 정보",
     "searchPlaceholder": "상품명 또는 SKU 검색...",
     "itemCode": "상품코드",
     "itemName": "상품명",
+    "sku": "SKU 코드",
+    "name": "상품명",
+    "description": "상품 설명",
+    "category": "카테고리",
+    "uom": "단위",
+    "unitCost": "단가",
     "color": "색상",
     "size": "사이즈",
     "type": "유형",
     "price": "가격",
     "stock": "재고",
     "status": "상태",
+    "statusActive": "활성",
+    "statusInactive": "비활성",
+    "itemType": "상품 유형",
+    "types": {
+      "FG": "완제품 (Finished Goods)",
+      "SF": "반제품 (Semi-Finished)",
+      "MOD": "모듈 (Module)",
+      "PT": "부품 (Part)",
+      "RM": "원자재 (Raw Material)",
+      "MR": "상품 (Merchandise)",
+      "CS": "소모품 (Consumable)",
+      "PKG": "포장재 (Packaging)"
+    },
+    "typeDescriptions": {
+      "FG": "최종 판매 제품 (BOM 구성 가능, 판매 가능)",
+      "SF": "중간 조립 제품 (BOM 구성 가능)",
+      "MOD": "여러 부품이 조립된 서브어셈블리 (BOM 구성 가능)",
+      "PT": "단일 구성품, 더 이상 분해 불가 (BOM 없음)",
+      "RM": "가공 전 원자재 (구매만 가능)",
+      "MR": "구매 후 재판매 상품 (BOM 없음)",
+      "CS": "생산/운영 소모품",
+      "PKG": "포장용 자재"
+    },
+    "namePlaceholder": "예: LCD 모니터 27인치",
+    "descriptionPlaceholder": "상품에 대한 상세 설명을 입력하세요",
+    "categoryPlaceholder": "예: 전자기기",
     "table": {
       "itemName": "상품명",
       "category": "카테고리",
@@ -32,7 +66,52 @@
     "error": {
       "loadFailed": "상품 데이터를 불러올 수 없습니다"
     },
-    "totalItems": "총 {{count}}개의 상품"
+    "errors": {
+      "createFailed": "상품 등록에 실패했습니다"
+    },
+    "validation": {
+      "skuRequired": "SKU 코드는 필수입니다",
+      "nameRequired": "상품명은 필수입니다"
+    },
+    "messages": {
+      "createSuccess": "상품이 성공적으로 등록되었습니다"
+    },
+    "totalItems": "총 {{count}}개의 상품",
+    "bom": {
+      "title": "BOM 구조",
+      "subtitle": "자재 명세서 (Bill of Materials)",
+      "addComponent": "구성품 추가",
+      "prototypeTitle": "🎬 프로토타입 데모",
+      "prototypeDescription": "이것은 BOM 트리 구조의 시각적 프로토타입입니다. 노드를 클릭하여 확장/축소할 수 있습니다. 실제 데이터 연동은 다음 단계에서 구현됩니다.",
+      "hierarchyTitle": "계층 구조",
+      "totalComponents": "총 구성품",
+      "hierarchyDepth": "계층 깊이",
+      "moduleCount": "모듈 수",
+      "quantity": "수량",
+      "noBom": "BOM이 등록되지 않았습니다",
+      "noBomDescription": "이 상품은 아직 구성품이 등록되지 않았습니다. 구성품을 추가하여 BOM을 생성하세요.",
+      "typeLabels": {
+        "FG": "완제품",
+        "SF": "반제품",
+        "MOD": "모듈",
+        "PT": "부품",
+        "RM": "원자재",
+        "MR": "상품",
+        "CS": "소모품",
+        "PKG": "포장재"
+      },
+      "sampleItems": {
+        "lcdMonitor": "LCD 모니터 27인치",
+        "lcdModule": "LCD 모듈",
+        "powerModule": "전원 모듈 (SMPS)",
+        "lcdPanel": "액정 패널 27인치",
+        "backlight": "백라이트 유닛",
+        "flexCable": "플렉시블 케이블",
+        "metalFrame": "금속 프레임",
+        "stand": "스탠드 (조절형)",
+        "packagingBox": "포장 박스 (대형)"
+      }
+    }
   },
   "stocks": {
     "title": "재고 관리",
@@ -76,6 +155,89 @@
     },
     "error": {
       "loadFailed": "입고 데이터를 불러올 수 없습니다"
+    }
+  },
+  "settings": {
+    "title": "설정",
+    "description": "시스템 설정을 관리합니다",
+    "quickLinks": "빠른 링크",
+    "comingSoon": "곧 제공 예정",
+    "comingSoonDescription": "{{category}} 기능은 곧 제공될 예정입니다",
+    "plannedFeatures": "예정된 기능",
+    "itemTypes": "상품 유형 설정",
+    "itemTypesDescription": "사용할 상품 유형을 선택하세요",
+    "enabledTypes": "활성화된 유형",
+    "selectAll": "전체 선택",
+    "deselectAll": "전체 해제",
+    "manufacturing": "제조 계층",
+    "others": "기타",
+    "saveSettings": "설정 저장",
+    "settingsSaved": "설정이 저장되었습니다",
+    "atLeastOne": "최소 1개 이상의 유형을 선택해야 합니다",
+    "categories": {
+      "items": {
+        "title": "상품 설정",
+        "description": "상품 관련 설정을 관리합니다",
+        "itemTypes": "상품 유형 설정",
+        "types": "유형 관리",
+        "typesDescription": "사용할 상품 유형을 선택하고 관리합니다",
+        "categories": "카테고리 관리",
+        "categoriesDescription": "상품 카테고리를 관리합니다",
+        "feature1": "상품 유형 활성화/비활성화",
+        "feature2": "카테고리 계층 구조 관리",
+        "feature3": "상품 속성 템플릿 설정"
+      },
+      "inbounds": {
+        "title": "입고 설정",
+        "description": "입고 정책 및 규칙을 설정합니다",
+        "feature1": "입고 자동 승인 규칙",
+        "feature2": "QC 검사 정책",
+        "feature3": "입고 알림 설정"
+      },
+      "outbounds": {
+        "title": "출고 설정",
+        "description": "출고 정책 및 규칙을 설정합니다",
+        "feature1": "출고 우선순위 규칙 (FIFO/LIFO)",
+        "feature2": "자동 할당 정책",
+        "feature3": "출고 승인 워크플로우"
+      },
+      "printers": {
+        "title": "프린터 설정",
+        "description": "바코드 및 라벨 프린터를 설정합니다",
+        "barcode": "바코드 프린터",
+        "feature1": "바코드 프린터 등록 및 관리",
+        "feature2": "라벨 템플릿 설정",
+        "feature3": "출력 규칙 설정"
+      },
+      "permissions": {
+        "title": "권한 설정",
+        "description": "사용자 역할 및 권한을 관리합니다",
+        "roles": "역할 관리",
+        "feature1": "역할(Role) 생성 및 편집",
+        "feature2": "권한(Permission) 매트릭스",
+        "feature3": "사용자별 역할 할당"
+      },
+      "sales": {
+        "title": "판매 설정",
+        "description": "판매 채널 및 가격 정책을 설정합니다",
+        "feature1": "판매 채널 관리 (POS, 온라인, B2B)",
+        "feature2": "가격 정책 및 할인 규칙",
+        "feature3": "세금 및 수수료 설정"
+      },
+      "units": {
+        "title": "단위 설정",
+        "description": "화폐, 거리, 무게, 부피 등 기본 단위를 설정합니다",
+        "feature1": "화폐 단위 (원화, 달러, 위안 등)",
+        "feature2": "거리, 무게, 부피 단위",
+        "feature3": "온도 단위 설정"
+      },
+      "system": {
+        "title": "시스템 설정",
+        "description": "일반 시스템 설정을 관리합니다",
+        "feature1": "회사 정보 및 로고",
+        "feature2": "알림 및 이메일 설정",
+        "feature3": "백업 및 복원 설정"
+      }
     }
   },
   "outbounds": {

@@ -18,6 +18,7 @@ export const PERMISSIONS = {
   ITEMS_VIEW: [ROLES.READONLY, ROLES.STAFF, ROLES.MANAGER],
   ITEMS_CREATE: [ROLES.STAFF, ROLES.MANAGER],
   ITEMS_EDIT: [ROLES.STAFF, ROLES.MANAGER],
+  ITEMS_UPDATE: [ROLES.STAFF, ROLES.MANAGER],
   ITEMS_DELETE: [ROLES.MANAGER],
 
   // Stocks (재고)
@@ -27,6 +28,8 @@ export const PERMISSIONS = {
   // Inbounds (입고)
   INBOUNDS_VIEW: [ROLES.READONLY, ROLES.STAFF, ROLES.MANAGER],
   INBOUNDS_CREATE: [ROLES.STAFF, ROLES.MANAGER],
+  INBOUNDS_UPDATE: [ROLES.STAFF, ROLES.MANAGER],
+  INBOUNDS_DELETE: [ROLES.MANAGER],
   INBOUNDS_SUBMIT: [ROLES.STAFF, ROLES.MANAGER],
   INBOUNDS_APPROVE: [ROLES.MANAGER],
   INBOUNDS_COMMIT: [ROLES.MANAGER],
@@ -34,6 +37,8 @@ export const PERMISSIONS = {
   // Outbounds (출고)
   OUTBOUNDS_VIEW: [ROLES.READONLY, ROLES.STAFF, ROLES.MANAGER],
   OUTBOUNDS_CREATE: [ROLES.STAFF, ROLES.MANAGER],
+  OUTBOUNDS_UPDATE: [ROLES.STAFF, ROLES.MANAGER],
+  OUTBOUNDS_DELETE: [ROLES.MANAGER],
   OUTBOUNDS_SUBMIT: [ROLES.STAFF, ROLES.MANAGER],
   OUTBOUNDS_APPROVE: [ROLES.MANAGER],
   OUTBOUNDS_COMMIT: [ROLES.MANAGER],
@@ -45,10 +50,10 @@ export type Permission = keyof typeof PERMISSIONS
  * 권한 체크 헬퍼
  */
 export function hasPermission(userRole: string | string[], permission: Permission): boolean {
-  const allowedRoles = PERMISSIONS[permission]
+  const allowedRoles = PERMISSIONS[permission] as readonly string[]
   // engine-core는 단일 role 사용, 기존 배열도 호환
   const roles = Array.isArray(userRole) ? userRole : [userRole]
-  return roles.some((role) => allowedRoles.includes(role as UserRole))
+  return roles.some((role) => allowedRoles.includes(role))
 }
 
 /**

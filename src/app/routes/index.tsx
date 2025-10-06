@@ -15,11 +15,14 @@ const DashboardPage = lazy(() => import('@/pages/DashboardPage'))
 // Items
 const ItemsPage = lazy(() => import('@/pages/items/ItemsPage'))
 const ItemsPageReal = lazy(() => import('@/pages/items/ItemsPageReal'))
+const ItemsPageRealGrid = lazy(() => import('@/pages/items/ItemsPageRealGrid'))
+const ItemCreatePage = lazy(() => import('@/pages/items/ItemCreatePage'))
 const ItemDetailPage = lazy(() => import('@/pages/items/ItemDetailPage'))
 
 // Stocks
 const StocksPage = lazy(() => import('@/pages/stocks/StocksPage'))
 const StocksPageReal = lazy(() => import('@/pages/stocks/StocksPageReal'))
+const StocksPageGrid = lazy(() => import('@/pages/stocks/StocksPageGrid'))
 
 // Inbounds
 const InboundsPage = lazy(() => import('@/pages/inbounds/InboundsPage'))
@@ -30,6 +33,18 @@ const InboundDetailPage = lazy(() => import('@/pages/inbounds/InboundDetailPage'
 const OutboundsPage = lazy(() => import('@/pages/outbounds/OutboundsPage'))
 const OutboundDetailPage = lazy(() => import('@/pages/outbounds/OutboundDetailPage'))
 const OutboundCreatePage = lazy(() => import('@/pages/outbounds/OutboundCreatePage'))
+
+// Settings
+const SettingsPage = lazy(() => import('@/pages/settings/SettingsPage'))
+const ItemSettingsPage = lazy(() => import('@/pages/settings/ItemSettingsPage'))
+const ItemTypeSettingsPage = lazy(() => import('@/pages/settings/ItemTypeSettingsPage'))
+const InboundSettingsPage = lazy(() => import('@/pages/settings/InboundSettingsPage'))
+const OutboundSettingsPage = lazy(() => import('@/pages/settings/OutboundSettingsPage'))
+const PrinterSettingsPage = lazy(() => import('@/pages/settings/PrinterSettingsPage'))
+const PermissionSettingsPage = lazy(() => import('@/pages/settings/PermissionSettingsPage'))
+const SalesSettingsPage = lazy(() => import('@/pages/settings/SalesSettingsPage'))
+const UnitSettingsPage = lazy(() => import('@/pages/settings/UnitSettingsPage'))
+const SystemSettingsPage = lazy(() => import('@/pages/settings/SystemSettingsPage'))
 
 // Error Pages
 const NotFoundPage = lazy(() => import('@/pages/errors/NotFoundPage'))
@@ -91,15 +106,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '/items',
-    element: (
-      <ProtectedRoute requiredPermission="ITEMS_VIEW">
-        <MainLayout>
-          <Suspense fallback={<LoadingFallback />}>
-            <ItemsPage />
-          </Suspense>
-        </MainLayout>
-      </ProtectedRoute>
-    ),
+    element: <Navigate to="/items-real" replace />,
   },
   {
     path: '/items-real',
@@ -107,7 +114,19 @@ export const router = createBrowserRouter([
       <ProtectedRoute>
         <MainLayout>
           <Suspense fallback={<LoadingFallback />}>
-            <ItemsPageReal />
+            <ItemsPageRealGrid />
+          </Suspense>
+        </MainLayout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/items/create',
+    element: (
+      <ProtectedRoute>
+        <MainLayout>
+          <Suspense fallback={<LoadingFallback />}>
+            <ItemCreatePage />
           </Suspense>
         </MainLayout>
       </ProtectedRoute>
@@ -139,11 +158,15 @@ export const router = createBrowserRouter([
   },
   {
     path: '/stocks-real',
+    element: <Navigate to="/stocks-grid" replace />,
+  },
+  {
+    path: '/stocks-grid',
     element: (
       <ProtectedRoute>
         <MainLayout>
           <Suspense fallback={<LoadingFallback />}>
-            <StocksPageReal />
+            <StocksPageGrid />
           </Suspense>
         </MainLayout>
       </ProtectedRoute>
@@ -216,6 +239,132 @@ export const router = createBrowserRouter([
         <MainLayout>
           <Suspense fallback={<LoadingFallback />}>
             <OutboundDetailPage />
+          </Suspense>
+        </MainLayout>
+      </ProtectedRoute>
+    ),
+  },
+  // Settings Routes
+  {
+    path: '/settings',
+    element: (
+      <ProtectedRoute>
+        <MainLayout>
+          <Suspense fallback={<LoadingFallback />}>
+            <SettingsPage />
+          </Suspense>
+        </MainLayout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/settings/items',
+    element: (
+      <ProtectedRoute>
+        <MainLayout>
+          <Suspense fallback={<LoadingFallback />}>
+            <ItemSettingsPage />
+          </Suspense>
+        </MainLayout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/settings/items/types',
+    element: (
+      <ProtectedRoute>
+        <MainLayout>
+          <Suspense fallback={<LoadingFallback />}>
+            <ItemTypeSettingsPage />
+          </Suspense>
+        </MainLayout>
+      </ProtectedRoute>
+    ),
+  },
+  // Redirect old URL to new URL (backward compatibility)
+  {
+    path: '/settings/item-types',
+    element: <Navigate to="/settings/items/types" replace />,
+  },
+  {
+    path: '/settings/inbounds',
+    element: (
+      <ProtectedRoute>
+        <MainLayout>
+          <Suspense fallback={<LoadingFallback />}>
+            <InboundSettingsPage />
+          </Suspense>
+        </MainLayout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/settings/outbounds',
+    element: (
+      <ProtectedRoute>
+        <MainLayout>
+          <Suspense fallback={<LoadingFallback />}>
+            <OutboundSettingsPage />
+          </Suspense>
+        </MainLayout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/settings/printers',
+    element: (
+      <ProtectedRoute>
+        <MainLayout>
+          <Suspense fallback={<LoadingFallback />}>
+            <PrinterSettingsPage />
+          </Suspense>
+        </MainLayout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/settings/permissions',
+    element: (
+      <ProtectedRoute>
+        <MainLayout>
+          <Suspense fallback={<LoadingFallback />}>
+            <PermissionSettingsPage />
+          </Suspense>
+        </MainLayout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/settings/sales',
+    element: (
+      <ProtectedRoute>
+        <MainLayout>
+          <Suspense fallback={<LoadingFallback />}>
+            <SalesSettingsPage />
+          </Suspense>
+        </MainLayout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/settings/units',
+    element: (
+      <ProtectedRoute>
+        <MainLayout>
+          <Suspense fallback={<LoadingFallback />}>
+            <UnitSettingsPage />
+          </Suspense>
+        </MainLayout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/settings/system',
+    element: (
+      <ProtectedRoute>
+        <MainLayout>
+          <Suspense fallback={<LoadingFallback />}>
+            <SystemSettingsPage />
           </Suspense>
         </MainLayout>
       </ProtectedRoute>

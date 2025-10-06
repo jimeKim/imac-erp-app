@@ -17,4 +17,7 @@ export default defineConfig({
     port: 5173,
     host: true,
   },
+  define: {
+    'import.meta.env.VITE_BUILD_ID': JSON.stringify(process.env.VITE_BUILD_ID || Date.now().toString()),
+  },
 })

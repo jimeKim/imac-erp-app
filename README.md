@@ -38,34 +38,75 @@
 
 ## 🚀 Quick Start
 
-### 백엔드 실행 (engine-core)
+### 개발 환경
+
+#### 프론트엔드 실행
 
 ```bash
-cd /Users/kjimi/erp-engine-system/engine-core
-source venv/bin/activate
+npm install
+npm run dev
+# http://localhost:5173
+```
+
+#### 백엔드 실행 (로컬)
+
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8000
 ```
 
-### 프론트엔드 실행
+### 프로덕션 배포
+
+#### 서버 정보
+- **서버**: DigitalOcean (139.59.110.55)
+- **백엔드**: FastAPI + Supabase (포트 8000)
+- **프론트엔드**: React + Vite (포트 80)
+
+#### 자동 배포 (권장)
 
 ```bash
-cd /Users/kjimi/erp-app
-npm install
-npm run dev
+# 1. 환경 설정
+./setup-env.sh
+
+# 2. Supabase 프로젝트 생성 및 API 키 입력
+# backend/.env 파일에 Supabase 정보 입력
+
+# 3. 전체 배포
+./deploy.sh
+
+# 4. 상태 확인
+./server-status.sh
 ```
+
+#### 빠른 재배포 (프론트엔드만)
+
+```bash
+./quick-deploy.sh
+```
+
+자세한 배포 가이드는 [DEPLOYMENT.md](./DEPLOYMENT.md) 참조
 
 ### 로그인
 
-- **URL**: http://localhost:5175
+- **URL**: http://139.59.110.55 (프로덕션) 또는 http://localhost:5173 (로컬)
 - **ID**: admin
 - **PW**: admin
 
 ### 환경 변수
 
+로컬 개발:
 ```bash
-# .env 파일 확인
-VITE_API_BASE_URL=http://localhost:8000
-VITE_APP_NAME=ERP 관리 시스템
+VITE_API_BASE_URL=http://localhost:8000/api/v1
+VITE_ENABLE_MOCK_API=true
+```
+
+프로덕션:
+```bash
+VITE_API_BASE_URL=http://139.59.110.55:8000/api/v1
+VITE_ENABLE_MOCK_API=false
 ```
 
 ## 📜 Scripts

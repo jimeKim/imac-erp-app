@@ -2,23 +2,44 @@
  * Item 관련 타입 정의
  */
 
+export type ItemType = 'FG' | 'SF' | 'MOD' | 'PT' | 'RM' | 'MR' | 'CS' | 'PKG'
+
 export interface Item {
   id: string
-  itemCode: string
   name: string
+  
+  // New backend fields (engine-core)
+  sku?: string
+  description?: string
+  category?: string
+  item_type?: ItemType
+  uom?: string
+  unit_cost?: number | null
+  status?: string
+  created_by?: string | null
+  created_at?: string
+  updated_at?: string
+  is_manufactured?: boolean
+  is_purchased?: boolean
+  is_sellable?: boolean
+  has_bom?: boolean
+  has_variants?: boolean
+  
+  // Legacy fields for backward compatibility
+  itemCode?: string
+  type?: 'assembled' | 'single'
+  purchasePrice?: number
+  costPrice?: number
+  releasePrice?: number
+  sellingPrice?: number
+  discountPrice?: number
+  currentStock?: number
+  safetyStock?: number
+  isActive?: boolean
   color?: string
   size?: string
-  type: 'assembled' | 'single'
-  purchasePrice: number
-  costPrice: number
-  releasePrice: number
-  sellingPrice: number
-  discountPrice?: number
-  currentStock: number
-  safetyStock: number
-  isActive: boolean
-  createdAt: string
-  updatedAt: string
+  createdAt?: string
+  updatedAt?: string
 }
 
 export interface ItemListParams {

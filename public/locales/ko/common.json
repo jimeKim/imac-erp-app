@@ -12,10 +12,18 @@
     "forgotPassword": "비밀번호 찾기"
   },
   "dashboard": "대시보드",
+  "login": "로그인",
+  "save": "저장",
+  "saving": "저장 중...",
+  "cancel": "취소",
+  "back": "돌아가기",
+  "success": "성공",
+  "error": "오류",
   "common": {
     "login": "로그인",
     "save": "저장",
     "cancel": "취소",
+    "add": "추가",
     "delete": "삭제",
     "edit": "수정",
     "create": "생성",
@@ -48,6 +56,58 @@
     "email": "올바른 이메일 형식이 아닙니다",
     "minLength": "최소 {{min}}자 이상 입력해주세요",
     "maxLength": "최대 {{max}}자까지 입력 가능합니다"
+  },
+  "units": {
+    "title": "단위 설정",
+    "description": "시스템 전체에서 사용할 기본 단위를 설정합니다",
+    "currency": "화폐 단위",
+    "distance": "거리 단위",
+    "weight": "무게 단위",
+    "volume": "부피 단위",
+    "temperature": "온도 단위",
+    "resetToDefaults": "기본값으로 초기화",
+    "saved": "단위 설정이 저장되었습니다",
+    "currencies": {
+      "KRW": "원화 (₩)",
+      "USD": "미국 달러 ($)",
+      "CNY": "중국 위안 (¥)",
+      "JPY": "일본 엔 (¥)",
+      "EUR": "유로 (€)",
+      "GBP": "영국 파운드 (£)"
+    },
+    "distances": {
+      "M": "미터 (m)",
+      "CM": "센티미터 (cm)",
+      "MM": "밀리미터 (mm)",
+      "KM": "킬로미터 (km)",
+      "FT": "피트 (ft)",
+      "IN": "인치 (in)",
+      "YD": "야드 (yd)",
+      "MILE": "마일 (mi)"
+    },
+    "weights": {
+      "KG": "킬로그램 (kg)",
+      "G": "그램 (g)",
+      "MG": "밀리그램 (mg)",
+      "T": "톤 (t)",
+      "LB": "파운드 (lb)",
+      "OZ": "온스 (oz)"
+    },
+    "volumes": {
+      "L": "리터 (L)",
+      "ML": "밀리리터 (mL)",
+      "M3": "세제곱미터 (m³)",
+      "CM3": "세제곱센티미터 (cm³)",
+      "GAL": "갤런 (gal)",
+      "QT": "쿼트 (qt)",
+      "PT": "파인트 (pt)",
+      "FLOZ": "액량 온스 (fl oz)"
+    },
+    "temperatures": {
+      "C": "섭씨 (°C)",
+      "F": "화씨 (°F)",
+      "K": "켈빈 (K)"
+    }
   }
 }
 

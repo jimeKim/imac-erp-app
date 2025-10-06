@@ -5,7 +5,9 @@ import { mapErrorToMessage, extractTraceId } from './errorMapper'
  * Axios 인스턴스 생성
  */
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000',
+  // Nginx 리버스 프록시를 통한 상대 경로 사용 (운영 환경)
+  // 개발 환경에서는 VITE_API_BASE_URL 환경변수 사용
+  baseURL: import.meta.env.VITE_API_BASE_URL || '',
   timeout: Number(import.meta.env.VITE_API_TIMEOUT_MS) || 15000,
   headers: {
     'Content-Type': 'application/json',

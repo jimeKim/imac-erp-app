@@ -59,7 +59,9 @@ export async function getItem(id: string): Promise<Item> {
     return item
   }
 
-  return api.get<Item>(`/items/${id}`)
+  // engine-core API 응답 형식: {data: {...}}
+  const response = await api.get<{ data: Item }>(`/api/v1/items/${id}`)
+  return response.data
 }
 
 /**

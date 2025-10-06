@@ -13,6 +13,7 @@ import {
   ChevronRight,
   PlusCircle,
   List,
+  Settings,
 } from 'lucide-react'
 import { Link, useLocation } from 'react-router-dom'
 
@@ -185,6 +186,22 @@ export function MainLayout({ children }: MainLayoutProps) {
             >
               <Search className="h-4 w-4" />
               조회 (재고)
+            </Link>
+
+            {/* 구분선 */}
+            <div className="my-2 border-t" />
+
+            {/* 설정 */}
+            <Link
+              to="/settings"
+              className={`flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                location.pathname.startsWith('/settings')
+                  ? 'bg-primary text-primary-foreground'
+                  : 'hover:bg-accent hover:text-accent-foreground'
+              }`}
+            >
+              <Settings className="h-4 w-4" />
+              설정
             </Link>
           </nav>
         </aside>

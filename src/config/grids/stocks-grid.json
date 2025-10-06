@@ -1,0 +1,94 @@
+{
+  "entity": "stocks",
+  "apiEndpoint": "/api/v1/stocks",
+  "features": {
+    "columnVisibility": true,
+    "sorting": true,
+    "filtering": true,
+    "pagination": true,
+    "export": false
+  },
+  "columns": [
+    {
+      "id": "item_sku",
+      "field": "item_sku",
+      "label": "SKU 코드",
+      "type": "text",
+      "width": 140,
+      "sortable": true,
+      "filterable": true,
+      "filterType": "text",
+      "hideable": false,
+      "visible": true,
+      "pinned": "left"
+    },
+    {
+      "id": "item_name",
+      "field": "item_name",
+      "label": "상품명",
+      "type": "text",
+      "width": 200,
+      "sortable": true,
+      "filterable": true,
+      "filterType": "text",
+      "hideable": true,
+      "visible": true
+    },
+    {
+      "id": "qty",
+      "field": "qty",
+      "label": "재고수량",
+      "type": "number",
+      "width": 100,
+      "sortable": true,
+      "filterable": true,
+      "filterType": "text",
+      "hideable": true,
+      "visible": true
+    },
+    {
+      "id": "warehouse",
+      "field": "warehouse",
+      "label": "창고",
+      "type": "text",
+      "width": 120,
+      "sortable": true,
+      "filterable": true,
+      "filterType": "text",
+      "hideable": true,
+      "visible": true
+    },
+    {
+      "id": "item_uom",
+      "field": "item_uom",
+      "label": "단위",
+      "type": "text",
+      "width": 80,
+      "sortable": true,
+      "filterable": true,
+      "filterType": "text",
+      "hideable": true,
+      "visible": true
+    },
+    {
+      "id": "updated_at",
+      "field": "updated_at",
+      "label": "최종 업데이트",
+      "type": "date",
+      "width": 150,
+      "sortable": true,
+      "filterable": false,
+      "hideable": true,
+      "visible": true
+    }
+  ],
+  "initialState": {
+    "columnVisibility": {},
+    "sorting": [
+      { "id": "updated_at", "desc": true }
+    ],
+    "pagination": {
+      "pageSize": 20
+    }
+  }
+}

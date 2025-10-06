@@ -1,7 +1,7 @@
 # 🎯 최종 설정 가이드
 
 **작성일**: 2025-10-06  
-**상태**: ✅ 기본 배포 완료, 추가 설정 진행  
+**상태**: ✅ 기본 배포 완료, 추가 설정 진행
 
 ---
 
@@ -56,6 +56,7 @@ Zero-downtime 배포를 위한 Blue-Green 환경 구축
 ```
 
 **실행 내용**:
+
 - Green 디렉토리 생성 (`/opt/erp-backend-green`)
 - Green 서비스 등록 (`erp-engine-green.service`)
 - Nginx Blue-Green 설정 적용
@@ -178,6 +179,7 @@ curl -s -D - http://139.59.110.55/healthz -o /dev/null | grep -i x-
 ## 📊 현재 시스템 현황
 
 ### 배포 정보
+
 ```
 Commit:       e4b884e
 Engine:       erp-backend@opt
@@ -186,6 +188,7 @@ Environment:  production
 ```
 
 ### 서비스 상태
+
 ```
 erp-engine:   ✅ active (5 workers)
 nginx:        ✅ active
@@ -193,6 +196,7 @@ Supabase:     ✅ connected
 ```
 
 ### API 엔드포인트
+
 ```
 Items:        ✅ /api/v1/items/
 Stocks:       ✅ /api/v1/stocks/
@@ -205,22 +209,26 @@ Outbounds:    ✅ /api/v1/outbounds/ (15개 엔드포인트)
 ## 🗂️ 생성된 문서 목록
 
 ### 핵심 가이드
+
 1. **`SUPABASE_MIGRATION_GUIDE.md`** - Supabase 마이그레이션 가이드
 2. **`SYSTEM_VERIFICATION_REPORT.md`** - 전체 검증 보고서
 3. **`QUICKSTART_DEPLOY.md`** - 10분 즉시 배포 가이드
 4. **`FINAL_SETUP_GUIDE.md`** - 본 문서 (최종 설정)
 
 ### 운영 가이드
+
 5. **`docs/operations/blue-green-deployment.md`** - Blue-Green 배포
 6. **`docs/operations/security-checklist.md`** - 4단계 보안 체크리스트
 7. **`docs/operations/nginx-blue-green.conf`** - Nginx 설정 템플릿
 
 ### 스크립트
+
 8. **`scripts/switch-api-slot.sh`** - Blue-Green 스위치
 9. **`scripts/setup-blue-green.sh`** - Blue-Green 자동 설정
 10. **`scripts/health-monitor.sh`** - 헬스 모니터링
 
 ### 코드
+
 11. **`backend/app/api/outbounds.py`** - Outbounds API (15개 엔드포인트)
 12. **`backend/supabase/migrations/003_outbounds_tables.sql`** - DB 마이그레이션
 
@@ -229,6 +237,7 @@ Outbounds:    ✅ /api/v1/outbounds/ (15개 엔드포인트)
 ## ⏭️ 권장 실행 순서
 
 ### 즉시 실행 (5분)
+
 ```bash
 # 1. Supabase 마이그레이션
 # → Supabase Dashboard에서 003_outbounds_tables.sql 실행
@@ -238,6 +247,7 @@ curl http://139.59.110.55/api/v1/outbounds/ | jq .
 ```
 
 ### 여유 있을 때 (30분)
+
 ```bash
 # 1. Blue-Green 배포 환경 구축
 ./scripts/setup-blue-green.sh
@@ -249,6 +259,7 @@ ssh root@139.59.110.55 'chmod +x /usr/local/bin/health-monitor.sh'
 ```
 
 ### 정기 점검 (주간)
+
 ```bash
 # 1. 보안 체크리스트 실행
 # → docs/operations/security-checklist.md 참조
@@ -265,6 +276,7 @@ ssh root@139.59.110.55 'sudo apt-get update && sudo apt-get upgrade -y'
 ## 🆘 문제 발생 시
 
 ### 서비스가 시작되지 않음
+
 ```bash
 # 로그 확인
 ssh root@139.59.110.55 'journalctl -u erp-engine.service -n 50'
@@ -274,6 +286,7 @@ ssh root@139.59.110.55 'cd /opt/erp-backend && source venv/bin/activate && uvico
 ```
 
 ### API가 응답하지 않음
+
 ```bash
 # 서비스 재시작
 ssh root@139.59.110.55 'sudo systemctl restart erp-engine.service'
@@ -283,6 +296,7 @@ ssh root@139.59.110.55 'sudo systemctl restart nginx'
 ```
 
 ### Outbounds API 404 에러
+
 ```bash
 # Supabase 마이그레이션 실행 확인
 # → SUPABASE_MIGRATION_GUIDE.md 참조
@@ -295,6 +309,7 @@ ssh root@139.59.110.55 'sudo systemctl restart nginx'
 **문서 위치**: `/Users/kjimi/Documents/GitHub/imac-erp-app/`
 
 **주요 명령어**:
+
 ```bash
 # 전체 상태 확인
 ./scripts/health-monitor.sh

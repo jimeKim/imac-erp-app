@@ -50,7 +50,7 @@ export default function ItemsPageReal() {
       <div className="p-4">
         <ErrorDisplay
           title={t('modules:items.error.loadFailed')}
-          message={(error as { message?: string }).message || 'Unknown error'}
+          description={(error as { message?: string }).message || 'Unknown error'}
         />
       </div>
     )
@@ -110,7 +110,9 @@ export default function ItemsPageReal() {
               <table className="min-w-full divide-y divide-border">
                 <thead className="bg-muted/40">
                   <tr>
-                    <th className="px-4 py-3 text-left text-sm font-medium">SKU</th>
+                    <th className="px-4 py-3 text-left text-sm font-medium">
+                      {t('modules:items.sku')}
+                    </th>
                     <th className="px-4 py-3 text-left text-sm font-medium">
                       {t('modules:items.table.itemName')}
                     </th>
@@ -122,29 +124,37 @@ export default function ItemsPageReal() {
                       {t('common.createdAt')}
                     </th>
                     <th className="px-4 py-3 text-center text-sm font-medium">
-                      {t('common.action')}
+                      {t('modules:items.itemType')}
                     </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border">
                   {items.map((item) => (
                     <tr key={item.id} className="hover:bg-muted/50">
-                      <td className="px-4 py-3 font-mono text-sm">{item.sku}</td>
+                      <td className="px-4 py-3 font-mono text-sm">
+                        <Link
+                          to={`/items/${item.id}`}
+                          className="text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                        >
+                          {item.sku}
+                        </Link>
+                      </td>
                       <td className="px-4 py-3 text-sm font-medium">{item.name}</td>
                       <td className="px-4 py-3 text-sm text-muted-foreground">{item.uom}</td>
                       <td className="px-4 py-3 text-right text-sm">
-                        {item.cost !== null ? `$${item.cost.toLocaleString()}` : '-'}
+                        {item.unit_cost !== null ? `₩${item.unit_cost.toLocaleString()}` : '-'}
                       </td>
                       <td className="px-4 py-3 text-sm text-muted-foreground">
                         {new Date(item.created_at).toLocaleDateString()}
                       </td>
                       <td className="px-4 py-3 text-center">
-                        <Link
-                          to={`/items/${item.id}`}
-                          className="inline-flex h-9 items-center justify-center rounded-md px-3 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                        >
-                          {t('common.view')}
-                        </Link>
+                        {item.item_type ? (
+                          <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">
+                            {t(`modules:items.types.${item.item_type}`)}
+                          </span>
+                        ) : (
+                          <span className="text-muted-foreground">-</span>
+                        )}
                       </td>
                     </tr>
                   ))}

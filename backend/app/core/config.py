@@ -13,6 +13,12 @@ class Settings(BaseSettings):
     APP_VERSION: str = "1.0.0"
     DEBUG: bool = True
     
+    # Engine Identification (for multi-backend tracking)
+    ENGINE_NAME: str = "erp-backend@opt"  # 운영 소스 식별
+    ENGINE_COMMIT_SHA: str = "dev"  # Git commit SHA (배포 시 주입)
+    ENGINE_SCHEMA_VERSION: str = "v1"  # DB 스키마 버전
+    ENGINE_ENV: str = "production"  # development, staging, production
+    
     # Supabase
     SUPABASE_URL: str
     SUPABASE_ANON_KEY: str

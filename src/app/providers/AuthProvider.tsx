@@ -86,10 +86,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
    */
   const checkAuth = async () => {
     try {
-      const response = await api.get<{ user: User }>('/api/v1/auth/me')
+      const response = await apiClient.get<User>('/api/v1/auth/me')
 
       setState({
-        user: response.user,
+        user: response.data,
         isAuthenticated: true,
         isLoading: false,
       })

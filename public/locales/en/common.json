@@ -12,6 +12,13 @@
     "forgotPassword": "Forgot Password"
   },
   "dashboard": "Dashboard",
+  "login": "Login",
+  "save": "Save",
+  "saving": "Saving...",
+  "cancel": "Cancel",
+  "back": "Back",
+  "success": "Success",
+  "error": "Error",
   "common": {
     "login": "Login",
     "save": "Save",

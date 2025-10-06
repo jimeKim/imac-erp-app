@@ -1,0 +1,135 @@
+{
+  "entity": "items",
+  "apiEndpoint": "/api/v1/items",
+  "features": {
+    "columnVisibility": true,
+    "sorting": true,
+    "filtering": true,
+    "pagination": true,
+    "export": false
+  },
+  "columns": [
+    {
+      "id": "sku",
+      "field": "sku",
+      "label": "SKU 코드",
+      "type": "link",
+      "width": 140,
+      "sortable": true,
+      "filterable": true,
+      "filterType": "text",
+      "hideable": false,
+      "visible": true,
+      "pinned": "left"
+    },
+    {
+      "id": "name",
+      "field": "name",
+      "label": "상품명",
+      "type": "text",
+      "width": 200,
+      "sortable": true,
+      "filterable": true,
+      "filterType": "text",
+      "hideable": true,
+      "visible": true
+    },
+    {
+      "id": "category",
+      "field": "category",
+      "label": "카테고리",
+      "type": "text",
+      "width": 150,
+      "sortable": true,
+      "filterable": true,
+      "filterType": "text",
+      "hideable": true,
+      "visible": false
+    },
+    {
+      "id": "uom",
+      "field": "uom",
+      "label": "UOM",
+      "type": "text",
+      "width": 80,
+      "sortable": true,
+      "filterable": true,
+      "filterType": "text",
+      "hideable": true,
+      "visible": true
+    },
+    {
+      "id": "unit_cost",
+      "field": "unit_cost",
+      "label": "택가",
+      "type": "number",
+      "width": 120,
+      "sortable": true,
+      "filterable": true,
+      "filterType": "text",
+      "hideable": true,
+      "visible": true
+    },
+    {
+      "id": "item_type",
+      "field": "item_type",
+      "label": "상품 유형",
+      "type": "badge",
+      "width": 180,
+      "sortable": true,
+      "filterable": true,
+      "filterType": "select",
+      "filterOptions": [
+        { "value": "FG", "label": "완제품 (Finished Goods)" },
+        { "value": "SF", "label": "반제품 (Semi-Finished)" },
+        { "value": "MOD", "label": "모듈 (Module)" },
+        { "value": "PT", "label": "부품 (Part)" },
+        { "value": "RM", "label": "원자재 (Raw Material)" },
+        { "value": "MR", "label": "상품 (Merchandise)" },
+        { "value": "CS", "label": "소모품 (Consumable)" },
+        { "value": "PKG", "label": "포장재 (Packaging)" }
+      ],
+      "hideable": true,
+      "visible": true
+    },
+    {
+      "id": "status",
+      "field": "status",
+      "label": "상태",
+      "type": "badge",
+      "width": 100,
+      "sortable": true,
+      "filterable": true,
+      "filterType": "select",
+      "filterOptions": [
+        { "value": "active", "label": "활성" },
+        { "value": "inactive", "label": "비활성" }
+      ],
+      "hideable": true,
+      "visible": false
+    },
+    {
+      "id": "created_at",
+      "field": "created_at",
+      "label": "생성일",
+      "type": "date",
+      "width": 120,
+      "sortable": true,
+      "filterable": false,
+      "hideable": true,
+      "visible": true
+    }
+  ],
+  "initialState": {
+    "columnVisibility": {
+      "category": false,
+      "status": false
+    },
+    "sorting": [
+      { "id": "created_at", "desc": true }
+    ],
+    "pagination": {
+      "pageSize": 20
+    }
+  }
+}

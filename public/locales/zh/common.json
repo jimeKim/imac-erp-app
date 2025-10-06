@@ -11,6 +11,14 @@
     "rememberMe": "记住我",
     "forgotPassword": "忘记密码"
   },
+  "dashboard": "仪表板",
+  "login": "登录",
+  "save": "保存",
+  "saving": "保存中...",
+  "cancel": "取消",
+  "back": "返回",
+  "success": "成功",
+  "error": "错误",
   "common": {
     "save": "保存",
     "cancel": "取消",

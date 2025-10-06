@@ -7,14 +7,109 @@
     "title": "商品管理",
     "list": "商品列表",
     "detail": "商品详情",
+    "create": "商品登记",
+    "createDescription": "登记新商品",
+    "basicInfo": "基本信息",
+    "searchPlaceholder": "按商品名称或SKU搜索...",
     "itemCode": "商品代码",
     "itemName": "商品名称",
+    "sku": "SKU代码",
+    "name": "商品名称",
+    "description": "商品说明",
+    "category": "类别",
+    "uom": "单位",
+    "unitCost": "单价",
     "color": "颜色",
     "size": "尺寸",
     "type": "类型",
     "price": "价格",
     "stock": "库存",
-    "status": "状态"
+    "status": "状态",
+    "statusActive": "活跃",
+    "statusInactive": "停用",
+    "itemType": "商品类型",
+    "types": {
+      "FG": "成品",
+      "SF": "半成品",
+      "MOD": "模块",
+      "PT": "零件",
+      "RM": "原材料",
+      "MR": "商品",
+      "CS": "消耗品",
+      "PKG": "包装材料"
+    },
+    "typeDescriptions": {
+      "FG": "最终销售产品 (支持BOM, 可销售)",
+      "SF": "中间组装产品 (支持BOM)",
+      "MOD": "多个零件组装的子组件 (支持BOM)",
+      "PT": "单一组件, 不可再拆解 (无BOM)",
+      "RM": "未加工原料 (仅采购)",
+      "MR": "采购后转售商品 (无BOM)",
+      "CS": "生产/运营消耗品",
+      "PKG": "包装用材料"
+    },
+    "namePlaceholder": "例：27英寸LCD显示器",
+    "descriptionPlaceholder": "输入商品的详细说明",
+    "categoryPlaceholder": "例：电子设备",
+    "table": {
+      "itemName": "商品名称",
+      "category": "类别",
+      "uom": "单位",
+      "cost": "单价",
+      "quantity": "库存",
+      "status": "状态"
+    },
+    "empty": {
+      "title": "没有商品",
+      "message": "创建新商品开始"
+    },
+    "error": {
+      "loadFailed": "无法加载商品数据"
+    },
+    "errors": {
+      "createFailed": "商品登记失败"
+    },
+    "validation": {
+      "skuRequired": "SKU代码是必填项",
+      "nameRequired": "商品名称是必填项"
+    },
+    "messages": {
+      "createSuccess": "商品登记成功"
+    },
+    "totalItems": "总共 {{count}} 个商品",
+    "bom": {
+      "title": "BOM结构",
+      "subtitle": "物料清单 (Bill of Materials)",
+      "addComponent": "添加组件",
+      "prototypeTitle": "🎬 原型演示",
+      "prototypeDescription": "这是BOM树结构的可视化原型。点击节点可展开/折叠。实际数据集成将在下一阶段实现。",
+      "hierarchyTitle": "层次结构",
+      "totalComponents": "总组件数",
+      "hierarchyDepth": "层次深度",
+      "moduleCount": "模块数",
+      "quantity": "数量",
+      "typeLabels": {
+        "FG": "成品",
+        "SF": "半成品",
+        "MOD": "模块",
+        "PT": "部件",
+        "RM": "原材料",
+        "MR": "商品",
+        "CS": "消耗品",
+        "PKG": "包装材料"
+      },
+      "sampleItems": {
+        "lcdMonitor": "LCD显示器 27英寸",
+        "lcdModule": "LCD模块",
+        "powerModule": "电源模块 (SMPS)",
+        "lcdPanel": "液晶面板 27英寸",
+        "backlight": "背光单元",
+        "flexCable": "柔性电缆",
+        "metalFrame": "金属框架",
+        "stand": "可调节支架",
+        "packagingBox": "包装盒 (大号)"
+      }
+    }
   },
   "stocks": {
     "title": "库存管理",
@@ -29,6 +124,82 @@
     "supplier": "供应商",
     "requestedDate": "请求日期",
     "status": "状态"
+  },
+  "settings": {
+    "title": "设置",
+    "description": "管理系统设置",
+    "quickLinks": "快捷链接",
+    "comingSoon": "即将推出",
+    "comingSoonDescription": "{{category}}功能即将推出",
+    "plannedFeatures": "计划功能",
+    "itemTypes": "商品类型设置",
+    "itemTypesDescription": "选择要使用的商品类型",
+    "enabledTypes": "已启用类型",
+    "selectAll": "全选",
+    "deselectAll": "全不选",
+    "manufacturing": "制造层级",
+    "others": "其他",
+    "saveSettings": "保存设置",
+    "settingsSaved": "设置已保存",
+    "atLeastOne": "至少选择一种类型",
+    "categories": {
+      "items": {
+        "title": "商品设置",
+        "description": "管理商品相关设置",
+        "itemTypes": "商品类型设置",
+        "types": "类型管理",
+        "typesDescription": "选择和管理要使用的商品类型",
+        "categories": "类别管理",
+        "categoriesDescription": "管理商品类别",
+        "feature1": "启用/禁用商品类型",
+        "feature2": "类别层级管理",
+        "feature3": "商品属性模板设置"
+      },
+      "inbounds": {
+        "title": "入库设置",
+        "description": "配置入库政策和规则",
+        "feature1": "自动审批规则",
+        "feature2": "质检政策",
+        "feature3": "入库通知设置"
+      },
+      "outbounds": {
+        "title": "出库设置",
+        "description": "配置出库政策和规则",
+        "feature1": "优先级规则 (FIFO/LIFO)",
+        "feature2": "自动分配政策",
+        "feature3": "审批工作流"
+      },
+      "printers": {
+        "title": "打印机设置",
+        "description": "配置条码和标签打印机",
+        "barcode": "条码打印机",
+        "feature1": "注册和管理打印机",
+        "feature2": "标签模板设置",
+        "feature3": "打印规则配置"
+      },
+      "permissions": {
+        "title": "权限设置",
+        "description": "管理用户角色和权限",
+        "roles": "角色管理",
+        "feature1": "创建和编辑角色",
+        "feature2": "权限矩阵",
+        "feature3": "为用户分配角色"
+      },
+      "sales": {
+        "title": "销售设置",
+        "description": "配置销售渠道和定价",
+        "feature1": "渠道管理 (POS, 在线, B2B)",
+        "feature2": "定价和折扣规则",
+        "feature3": "税费设置"
+      },
+      "system": {
+        "title": "系统设置",
+        "description": "管理常规系统设置",
+        "feature1": "公司信息和Logo",
+        "feature2": "通知和邮件设置",
+        "feature3": "备份和恢复"
+      }
+    }
   },
   "outbounds": {
     "title": "出库管理",

@@ -9,10 +9,16 @@ export interface Item {
   id: string
   sku: string
   name: string
+  description?: string
+  category?: string
+  item_type?: string
   uom: string
-  cost: number | null
+  unit_cost: number | null
+  status?: string
   created_at: string
   updated_at: string
+  // Backward compatibility
+  cost?: number | null
 }
 
 export interface ItemsResponse {

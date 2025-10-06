@@ -8,15 +8,49 @@
     "list": "Item List",
     "detail": "Item Detail",
     "create": "Create Item",
+    "createDescription": "Register a new item",
+    "basicInfo": "Basic Information",
     "searchPlaceholder": "Search by item name or SKU...",
     "itemCode": "Item Code",
     "itemName": "Item Name",
+    "sku": "SKU Code",
+    "name": "Item Name",
+    "description": "Description",
+    "category": "Category",
+    "uom": "Unit of Measure",
+    "unitCost": "Unit Cost",
     "color": "Color",
     "size": "Size",
     "type": "Type",
     "price": "Price",
     "stock": "Stock",
     "status": "Status",
+    "statusActive": "Active",
+    "statusInactive": "Inactive",
+    "itemType": "Item Type",
+    "types": {
+      "FG": "Finished Goods",
+      "SF": "Semi-Finished",
+      "MOD": "Module",
+      "PT": "Part",
+      "RM": "Raw Material",
+      "MR": "Merchandise",
+      "CS": "Consumable",
+      "PKG": "Packaging"
+    },
+    "typeDescriptions": {
+      "FG": "Final product for sale (BOM supported, Sellable)",
+      "SF": "Intermediate assembly (BOM supported)",
+      "MOD": "Sub-assembly of multiple parts (BOM supported)",
+      "PT": "Single component, cannot be disassembled (No BOM)",
+      "RM": "Unprocessed raw material (Purchase only)",
+      "MR": "Resale merchandise (No BOM)",
+      "CS": "Production/Operation consumable",
+      "PKG": "Packaging material"
+    },
+    "namePlaceholder": "e.g., 27-inch LCD Monitor",
+    "descriptionPlaceholder": "Enter detailed description of the item",
+    "categoryPlaceholder": "e.g., Electronics",
     "table": {
       "itemName": "Item Name",
       "category": "Category",
@@ -32,7 +66,50 @@
     "error": {
       "loadFailed": "Failed to load items"
     },
-    "totalItems": "Total {{count}} items"
+    "errors": {
+      "createFailed": "Failed to create item"
+    },
+    "validation": {
+      "skuRequired": "SKU code is required",
+      "nameRequired": "Item name is required"
+    },
+    "messages": {
+      "createSuccess": "Item created successfully"
+    },
+    "totalItems": "Total {{count}} items",
+    "bom": {
+      "title": "BOM Structure",
+      "subtitle": "Bill of Materials",
+      "addComponent": "Add Component",
+      "prototypeTitle": "🎬 Prototype Demo",
+      "prototypeDescription": "This is a visual prototype of the BOM tree structure. Click nodes to expand/collapse. Actual data integration will be implemented in the next phase.",
+      "hierarchyTitle": "Hierarchy Structure",
+      "totalComponents": "Total Components",
+      "hierarchyDepth": "Hierarchy Depth",
+      "moduleCount": "Module Count",
+      "quantity": "Quantity",
+      "typeLabels": {
+        "FG": "Finished Goods",
+        "SF": "Semi-Finished",
+        "MOD": "Module",
+        "PT": "Part",
+        "RM": "Raw Material",
+        "MR": "Merchandise",
+        "CS": "Consumable",
+        "PKG": "Packaging"
+      },
+      "sampleItems": {
+        "lcdMonitor": "LCD Monitor 27\"",
+        "lcdModule": "LCD Module",
+        "powerModule": "Power Module (SMPS)",
+        "lcdPanel": "LCD Panel 27\"",
+        "backlight": "Backlight Unit",
+        "flexCable": "Flexible Cable",
+        "metalFrame": "Metal Frame",
+        "stand": "Adjustable Stand",
+        "packagingBox": "Packaging Box (Large)"
+      }
+    }
   },
   "stocks": {
     "title": "Stock Management",
@@ -76,6 +153,82 @@
     },
     "error": {
       "loadFailed": "Failed to load inbound data"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "description": "Manage system settings",
+    "quickLinks": "Quick Links",
+    "comingSoon": "Coming Soon",
+    "comingSoonDescription": "{{category}} features will be available soon",
+    "plannedFeatures": "Planned Features",
+    "itemTypes": "Item Type Settings",
+    "itemTypesDescription": "Select item types to use",
+    "enabledTypes": "Enabled Types",
+    "selectAll": "Select All",
+    "deselectAll": "Deselect All",
+    "manufacturing": "Manufacturing Hierarchy",
+    "others": "Others",
+    "saveSettings": "Save Settings",
+    "settingsSaved": "Settings saved successfully",
+    "atLeastOne": "At least one type must be selected",
+    "categories": {
+      "items": {
+        "title": "Item Settings",
+        "description": "Manage item-related settings",
+        "itemTypes": "Item Type Settings",
+        "types": "Type Management",
+        "typesDescription": "Select and manage item types to use",
+        "categories": "Category Management",
+        "categoriesDescription": "Manage item categories",
+        "feature1": "Enable/Disable item types",
+        "feature2": "Category hierarchy management",
+        "feature3": "Item attribute template settings"
+      },
+      "inbounds": {
+        "title": "Inbound Settings",
+        "description": "Configure inbound policies and rules",
+        "feature1": "Auto-approval rules",
+        "feature2": "QC inspection policy",
+        "feature3": "Inbound notifications"
+      },
+      "outbounds": {
+        "title": "Outbound Settings",
+        "description": "Configure outbound policies and rules",
+        "feature1": "Priority rules (FIFO/LIFO)",
+        "feature2": "Auto-allocation policy",
+        "feature3": "Approval workflow"
+      },
+      "printers": {
+        "title": "Printer Settings",
+        "description": "Configure barcode and label printers",
+        "barcode": "Barcode Printer",
+        "feature1": "Register and manage printers",
+        "feature2": "Label template settings",
+        "feature3": "Print rule configuration"
+      },
+      "permissions": {
+        "title": "Permission Settings",
+        "description": "Manage user roles and permissions",
+        "roles": "Role Management",
+        "feature1": "Create and edit roles",
+        "feature2": "Permission matrix",
+        "feature3": "Assign roles to users"
+      },
+      "sales": {
+        "title": "Sales Settings",
+        "description": "Configure sales channels and pricing",
+        "feature1": "Channel management (POS, Online, B2B)",
+        "feature2": "Pricing and discount rules",
+        "feature3": "Tax and fee settings"
+      },
+      "system": {
+        "title": "System Settings",
+        "description": "Manage general system settings",
+        "feature1": "Company info and logo",
+        "feature2": "Notification and email settings",
+        "feature3": "Backup and restore"
+      }
     }
   },
   "outbounds": {

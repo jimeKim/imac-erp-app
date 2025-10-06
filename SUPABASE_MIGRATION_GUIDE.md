@@ -25,6 +25,7 @@
 ### Step 1: Supabase Dashboard 접속
 
 1. 브라우저에서 접속:
+
    ```
    https://supabase.com/dashboard
    ```
@@ -60,9 +61,9 @@ CREATE TABLE IF NOT EXISTS outbounds (
     memo TEXT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    
+
     -- 상태 제약조건
-    CONSTRAINT outbounds_status_check 
+    CONSTRAINT outbounds_status_check
         CHECK (status IN ('DRAFT', 'CONFIRMED', 'POSTED', 'CANCELED'))
 );
 
@@ -160,9 +161,9 @@ COMMENT ON TABLE flows IS '상태 전이 기록 테이블';
 
 ```sql
 -- 테이블 확인
-SELECT table_name 
-FROM information_schema.tables 
-WHERE table_schema = 'public' 
+SELECT table_name
+FROM information_schema.tables
+WHERE table_schema = 'public'
 AND table_name IN ('outbounds', 'outbound_items', 'flows');
 
 -- 샘플 데이터 확인
@@ -199,6 +200,7 @@ ORDER BY ordinal_position;
 ```
 
 **기대 결과**:
+
 - id (uuid)
 - outbound_no (text)
 - status (text)
@@ -218,6 +220,7 @@ ORDER BY ordinal_position;
 ```
 
 **기대 결과**:
+
 - id (uuid)
 - outbound_id (uuid)
 - item_id (uuid)
