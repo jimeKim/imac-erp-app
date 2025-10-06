@@ -1,17 +1,18 @@
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { 
-  Settings, 
-  Package, 
-  TruckIcon, 
-  Truck, 
-  Printer, 
-  Users, 
+import {
+  Settings,
+  Package,
+  TruckIcon,
+  Truck,
+  Printer,
+  Users,
   DollarSign,
   Cog,
   ChevronRight,
-  Ruler
+  Ruler,
+  Folders,
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui'
 
@@ -34,6 +35,11 @@ export default function SettingsPage() {
       id: 'items',
       icon: <Package className="h-8 w-8 text-blue-600" />,
       path: '/settings/items',
+    },
+    {
+      id: 'categories',
+      icon: <Folders className="h-8 w-8 text-cyan-600" />,
+      path: '/settings/categories',
     },
     {
       id: 'inbounds',
@@ -80,20 +86,14 @@ export default function SettingsPage() {
           <Settings className="h-6 w-6" />
           <h1 className="text-2xl font-bold">{t('modules:settings.title')}</h1>
         </div>
-        <p className="mt-1 text-sm text-muted-foreground">
-          {t('modules:settings.description')}
-        </p>
+        <p className="mt-1 text-sm text-muted-foreground">{t('modules:settings.description')}</p>
       </div>
 
       {/* 설정 카테고리 그리드 */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {settingCategories.map((category) => (
-          <Link
-            key={category.id}
-            to={category.path}
-            className="group"
-          >
-            <Card className="transition-all hover:shadow-md hover:border-primary">
+          <Link key={category.id} to={category.path} className="group">
+            <Card className="transition-all hover:border-primary hover:shadow-md">
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
@@ -102,7 +102,7 @@ export default function SettingsPage() {
                       {t(`modules:settings.categories.${category.id}.title`)}
                     </CardTitle>
                   </div>
-                  <ChevronRight className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                  <ChevronRight className="h-5 w-5 text-muted-foreground transition-colors group-hover:text-primary" />
                 </div>
               </CardHeader>
               <CardContent>
@@ -129,19 +129,19 @@ export default function SettingsPage() {
           <div className="flex flex-wrap gap-2">
             <Link
               to="/settings/items/types"
-              className="rounded-md border px-3 py-2 text-sm hover:bg-accent transition-colors"
+              className="rounded-md border px-3 py-2 text-sm transition-colors hover:bg-accent"
             >
               {t('modules:settings.categories.items.itemTypes')}
             </Link>
             <Link
               to="/settings/printers/barcode"
-              className="rounded-md border px-3 py-2 text-sm hover:bg-accent transition-colors"
+              className="rounded-md border px-3 py-2 text-sm transition-colors hover:bg-accent"
             >
               {t('modules:settings.categories.printers.barcode')}
             </Link>
             <Link
               to="/settings/permissions/roles"
-              className="rounded-md border px-3 py-2 text-sm hover:bg-accent transition-colors"
+              className="rounded-md border px-3 py-2 text-sm transition-colors hover:bg-accent"
             >
               {t('modules:settings.categories.permissions.roles')}
             </Link>

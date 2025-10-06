@@ -1,7 +1,16 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { Link, useParams } from 'react-router-dom'
-import { ArrowLeft, Package, Edit, Trash2, AlertCircle, GitBranch, History, FileText } from 'lucide-react'
+import {
+  ArrowLeft,
+  Package,
+  Edit,
+  Trash2,
+  AlertCircle,
+  GitBranch,
+  History,
+  FileText,
+} from 'lucide-react'
 import { getItem } from '@/shared/services/itemApi'
 import { Button, Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui'
 import { ErrorDisplay } from '@/shared/components/feedback'
@@ -91,19 +100,21 @@ export default function ItemDetailPage() {
       </div>
 
       {/* 재고 경고 */}
-      {item.currentStock !== undefined && item.safetyStock !== undefined && item.currentStock < item.safetyStock && (
-        <Card className="border-destructive bg-destructive/5">
-          <CardContent className="flex items-center gap-3 py-4">
-            <AlertCircle className="h-5 w-5 text-destructive" />
-            <div>
-              <p className="font-semibold text-destructive">Low Stock Alert</p>
-              <p className="text-sm text-muted-foreground">
-                Current stock ({item.currentStock}) is below safety stock ({item.safetyStock})
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-      )}
+      {item.currentStock !== undefined &&
+        item.safetyStock !== undefined &&
+        item.currentStock < item.safetyStock && (
+          <Card className="border-destructive bg-destructive/5">
+            <CardContent className="flex items-center gap-3 py-4">
+              <AlertCircle className="h-5 w-5 text-destructive" />
+              <div>
+                <p className="font-semibold text-destructive">Low Stock Alert</p>
+                <p className="text-sm text-muted-foreground">
+                  Current stock ({item.currentStock}) is below safety stock ({item.safetyStock})
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
       {/* 탭 네비게이션 */}
       <div className="border-b">
@@ -129,9 +140,7 @@ export default function ItemDetailPage() {
           >
             <GitBranch className="h-4 w-4" />
             BOM 구조
-            <span className="rounded-full bg-blue-100 px-2 py-0.5 text-xs text-blue-700">
-              NEW
-            </span>
+            <span className="rounded-full bg-blue-100 px-2 py-0.5 text-xs text-blue-700">NEW</span>
           </button>
           <button
             onClick={() => setActiveTab('stock')}
@@ -161,176 +170,193 @@ export default function ItemDetailPage() {
       {/* 탭 컨텐츠 */}
       {activeTab === 'basic' && (
         <div className="grid gap-6 md:grid-cols-2">
-        {/* 기본 정보 */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Package className="h-5 w-5" />
-              Basic Information
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="text-sm font-medium text-muted-foreground">Type</label>
-                <p className="mt-1 capitalize">{item.type}</p>
-              </div>
-              {item.color && (
-                <div>
-                  <label className="text-sm font-medium text-muted-foreground">Color</label>
-                  <p className="mt-1">{item.color}</p>
-                </div>
-              )}
-              {item.size && (
-                <div>
-                  <label className="text-sm font-medium text-muted-foreground">Size</label>
-                  <p className="mt-1">{item.size}</p>
-                </div>
-              )}
-              <div>
-                <label className="text-sm font-medium text-muted-foreground">Status</label>
-                <p className="mt-1">
-                  {item.isActive ? (
-                    <span className="text-green-600">Active</span>
-                  ) : (
-                    <span className="text-muted-foreground">Inactive</span>
-                  )}
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-            {/* 재고 정보 */}
-            {item.currentStock !== undefined && item.safetyStock !== undefined && (
-              <Card>
-                <CardHeader>
-                  <CardTitle>Stock Information</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="text-sm font-medium text-muted-foreground">Current Stock</label>
-                      <p
-                        className={`mt-1 text-2xl font-bold ${
-                          item.currentStock < item.safetyStock ? 'text-destructive' : ''
-                        }`}
-                      >
-                        {item.currentStock}
-                      </p>
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium text-muted-foreground">Safety Stock</label>
-                      <p className="mt-1 text-2xl font-bold">{item.safetyStock}</p>
-                    </div>
+          {/* 기본 정보 */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Package className="h-5 w-5" />
+                Basic Information
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                {item.category && (
+                  <div>
+                    <label className="text-sm font-medium text-muted-foreground">카테고리</label>
+                    <p className="mt-1">{item.category.name}</p>
+                    {item.category.description && (
+                      <p className="text-xs text-muted-foreground">{item.category.description}</p>
+                    )}
                   </div>
+                )}
+                <div>
+                  <label className="text-sm font-medium text-muted-foreground">Type</label>
+                  <p className="mt-1 capitalize">{item.item_type || item.type}</p>
+                </div>
+                {item.color && (
+                  <div>
+                    <label className="text-sm font-medium text-muted-foreground">Color</label>
+                    <p className="mt-1">{item.color}</p>
+                  </div>
+                )}
+                {item.size && (
+                  <div>
+                    <label className="text-sm font-medium text-muted-foreground">Size</label>
+                    <p className="mt-1">{item.size}</p>
+                  </div>
+                )}
+                <div>
+                  <label className="text-sm font-medium text-muted-foreground">Status</label>
+                  <p className="mt-1">
+                    {item.status === 'active' || item.isActive ? (
+                      <span className="text-green-600">Active</span>
+                    ) : (
+                      <span className="text-muted-foreground">Inactive</span>
+                    )}
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
-                  <div className="pt-2">
-                    <div className="h-2 overflow-hidden rounded-full bg-muted">
-                      <div
-                        className={`h-full ${
-                          item.currentStock < item.safetyStock ? 'bg-destructive' : 'bg-primary'
-                        }`}
-                        style={{
-                          width: `${Math.min((item.currentStock / item.safetyStock) * 100, 100)}%`,
-                        }}
-                      />
-                    </div>
-                    <p className="mt-2 text-xs text-muted-foreground">
-                      {item.currentStock >= item.safetyStock
-                        ? 'Stock level is healthy'
-                        : 'Stock level is below safety threshold'}
+          {/* 재고 정보 */}
+          {item.currentStock !== undefined && item.safetyStock !== undefined && (
+            <Card>
+              <CardHeader>
+                <CardTitle>Stock Information</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm font-medium text-muted-foreground">
+                      Current Stock
+                    </label>
+                    <p
+                      className={`mt-1 text-2xl font-bold ${
+                        item.currentStock < item.safetyStock ? 'text-destructive' : ''
+                      }`}
+                    >
+                      {item.currentStock}
                     </p>
                   </div>
-                </CardContent>
-              </Card>
-            )}
+                  <div>
+                    <label className="text-sm font-medium text-muted-foreground">
+                      Safety Stock
+                    </label>
+                    <p className="mt-1 text-2xl font-bold">{item.safetyStock}</p>
+                  </div>
+                </div>
 
-            {/* 가격 정보 (legacy) */}
-            {item.purchasePrice !== undefined && (
-              <Card>
-                <CardHeader>
-                  <CardTitle>Pricing</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  {item.purchasePrice !== undefined && (
-                    <div className="flex justify-between border-b pb-2">
-                      <span className="text-sm text-muted-foreground">Purchase Price</span>
-                      <span className="font-medium">₩{item.purchasePrice.toLocaleString()}</span>
-                    </div>
-                  )}
-                  {item.costPrice !== undefined && (
-                    <div className="flex justify-between border-b pb-2">
-                      <span className="text-sm text-muted-foreground">Cost Price</span>
-                      <span className="font-medium">₩{item.costPrice.toLocaleString()}</span>
-                    </div>
-                  )}
-                  {item.releasePrice !== undefined && (
-                    <div className="flex justify-between border-b pb-2">
-                      <span className="text-sm text-muted-foreground">Release Price</span>
-                      <span className="font-medium">₩{item.releasePrice.toLocaleString()}</span>
-                    </div>
-                  )}
-                  {item.sellingPrice !== undefined && (
-                    <div className="flex justify-between border-b pb-2">
-                      <span className="text-sm text-muted-foreground">Selling Price</span>
-                      <span className="font-semibold text-primary">
-                        ₩{item.sellingPrice.toLocaleString()}
-                      </span>
-                    </div>
-                  )}
-                  {item.discountPrice && item.discountPrice > 0 && (
-                    <div className="flex justify-between">
-                      <span className="text-sm text-muted-foreground">Discount Price</span>
-                      <span className="font-semibold text-green-600">
-                        ₩{item.discountPrice.toLocaleString()}
-                      </span>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            )}
+                <div className="pt-2">
+                  <div className="h-2 overflow-hidden rounded-full bg-muted">
+                    <div
+                      className={`h-full ${
+                        item.currentStock < item.safetyStock ? 'bg-destructive' : 'bg-primary'
+                      }`}
+                      style={{
+                        width: `${Math.min((item.currentStock / item.safetyStock) * 100, 100)}%`,
+                      }}
+                    />
+                  </div>
+                  <p className="mt-2 text-xs text-muted-foreground">
+                    {item.currentStock >= item.safetyStock
+                      ? 'Stock level is healthy'
+                      : 'Stock level is below safety threshold'}
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          )}
 
-            {/* 단가 정보 (new) */}
-            {item.unit_cost !== null && item.unit_cost !== undefined && (
-              <Card>
-                <CardHeader>
-                  <CardTitle>Cost Information</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
+          {/* 가격 정보 (legacy) */}
+          {item.purchasePrice !== undefined && (
+            <Card>
+              <CardHeader>
+                <CardTitle>Pricing</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {item.purchasePrice !== undefined && (
                   <div className="flex justify-between border-b pb-2">
-                    <span className="text-sm text-muted-foreground">Unit Cost</span>
+                    <span className="text-sm text-muted-foreground">Purchase Price</span>
+                    <span className="font-medium">₩{item.purchasePrice.toLocaleString()}</span>
+                  </div>
+                )}
+                {item.costPrice !== undefined && (
+                  <div className="flex justify-between border-b pb-2">
+                    <span className="text-sm text-muted-foreground">Cost Price</span>
+                    <span className="font-medium">₩{item.costPrice.toLocaleString()}</span>
+                  </div>
+                )}
+                {item.releasePrice !== undefined && (
+                  <div className="flex justify-between border-b pb-2">
+                    <span className="text-sm text-muted-foreground">Release Price</span>
+                    <span className="font-medium">₩{item.releasePrice.toLocaleString()}</span>
+                  </div>
+                )}
+                {item.sellingPrice !== undefined && (
+                  <div className="flex justify-between border-b pb-2">
+                    <span className="text-sm text-muted-foreground">Selling Price</span>
                     <span className="font-semibold text-primary">
-                      ₩{item.unit_cost.toLocaleString()}
+                      ₩{item.sellingPrice.toLocaleString()}
                     </span>
                   </div>
-                  {item.uom && (
-                    <div className="flex justify-between">
-                      <span className="text-sm text-muted-foreground">Unit of Measure</span>
-                      <span className="font-medium">{item.uom}</span>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            )}
+                )}
+                {item.discountPrice && item.discountPrice > 0 && (
+                  <div className="flex justify-between">
+                    <span className="text-sm text-muted-foreground">Discount Price</span>
+                    <span className="font-semibold text-green-600">
+                      ₩{item.discountPrice.toLocaleString()}
+                    </span>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          )}
 
-        {/* 메타 정보 */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Metadata</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <div>
-              <label className="text-sm font-medium text-muted-foreground">Created At</label>
-              <p className="mt-1">{new Date(item.createdAt).toLocaleString()}</p>
-            </div>
-            <div>
-              <label className="text-sm font-medium text-muted-foreground">Last Updated</label>
-              <p className="mt-1">{new Date(item.updatedAt).toLocaleString()}</p>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+          {/* 단가 정보 (new) */}
+          {item.unit_cost !== null && item.unit_cost !== undefined && (
+            <Card>
+              <CardHeader>
+                <CardTitle>Cost Information</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <div className="flex justify-between border-b pb-2">
+                  <span className="text-sm text-muted-foreground">Unit Cost</span>
+                  <span className="font-semibold text-primary">
+                    ₩{item.unit_cost.toLocaleString()}
+                  </span>
+                </div>
+                {item.uom && (
+                  <div className="flex justify-between">
+                    <span className="text-sm text-muted-foreground">Unit of Measure</span>
+                    <span className="font-medium">{item.uom}</span>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          )}
+
+          {/* 메타 정보 */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Metadata</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <div>
+                <label className="text-sm font-medium text-muted-foreground">Created At</label>
+                <p className="mt-1">
+                  {new Date(item.created_at || item.createdAt || '').toLocaleString()}
+                </p>
+              </div>
+              <div>
+                <label className="text-sm font-medium text-muted-foreground">Last Updated</label>
+                <p className="mt-1">
+                  {new Date(item.updated_at || item.updatedAt || '').toLocaleString()}
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       )}
 
       {/* BOM 구조 탭 */}
@@ -340,45 +366,55 @@ export default function ItemDetailPage() {
         </div>
       )}
 
-          {/* 재고 현황 탭 */}
-          {activeTab === 'stock' && (
-            <Card>
-              <CardHeader>
-                <CardTitle>재고 현황</CardTitle>
-              </CardHeader>
-              <CardContent>
-                {item.currentStock !== undefined && item.safetyStock !== undefined ? (
-                  <div className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="text-sm font-medium text-muted-foreground">Current Stock</label>
-                        <p className={`mt-1 text-2xl font-bold ${item.currentStock < item.safetyStock ? 'text-destructive' : ''}`}>
-                          {item.currentStock}
-                        </p>
-                      </div>
-                      <div>
-                        <label className="text-sm font-medium text-muted-foreground">Safety Stock</label>
-                        <p className="mt-1 text-2xl font-bold">{item.safetyStock}</p>
-                      </div>
-                    </div>
-                    <div className="pt-2">
-                      <div className="h-2 overflow-hidden rounded-full bg-muted">
-                        <div
-                          className={`h-full ${item.currentStock < item.safetyStock ? 'bg-destructive' : 'bg-primary'}`}
-                          style={{ width: `${Math.min((item.currentStock / item.safetyStock) * 100, 100)}%` }}
-                        />
-                      </div>
-                      <p className="mt-2 text-xs text-muted-foreground">
-                        {item.currentStock >= item.safetyStock ? 'Stock level is healthy' : 'Stock level is below safety threshold'}
-                      </p>
-                    </div>
+      {/* 재고 현황 탭 */}
+      {activeTab === 'stock' && (
+        <Card>
+          <CardHeader>
+            <CardTitle>재고 현황</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {item.currentStock !== undefined && item.safetyStock !== undefined ? (
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm font-medium text-muted-foreground">
+                      Current Stock
+                    </label>
+                    <p
+                      className={`mt-1 text-2xl font-bold ${item.currentStock < item.safetyStock ? 'text-destructive' : ''}`}
+                    >
+                      {item.currentStock}
+                    </p>
                   </div>
-                ) : (
-                  <p className="text-muted-foreground">재고 정보가 없습니다.</p>
-                )}
-              </CardContent>
-            </Card>
-          )}
+                  <div>
+                    <label className="text-sm font-medium text-muted-foreground">
+                      Safety Stock
+                    </label>
+                    <p className="mt-1 text-2xl font-bold">{item.safetyStock}</p>
+                  </div>
+                </div>
+                <div className="pt-2">
+                  <div className="h-2 overflow-hidden rounded-full bg-muted">
+                    <div
+                      className={`h-full ${item.currentStock < item.safetyStock ? 'bg-destructive' : 'bg-primary'}`}
+                      style={{
+                        width: `${Math.min((item.currentStock / item.safetyStock) * 100, 100)}%`,
+                      }}
+                    />
+                  </div>
+                  <p className="mt-2 text-xs text-muted-foreground">
+                    {item.currentStock >= item.safetyStock
+                      ? 'Stock level is healthy'
+                      : 'Stock level is below safety threshold'}
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <p className="text-muted-foreground">재고 정보가 없습니다.</p>
+            )}
+          </CardContent>
+        </Card>
+      )}
 
       {/* 거래 이력 탭 */}
       {activeTab === 'history' && (
@@ -387,8 +423,8 @@ export default function ItemDetailPage() {
             <CardTitle>거래 이력</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-center py-8 text-muted-foreground">
-              <History className="h-12 w-12 mx-auto mb-2 opacity-50" />
+            <div className="py-8 text-center text-muted-foreground">
+              <History className="mx-auto mb-2 h-12 w-12 opacity-50" />
               <p>거래 이력 기능은 곧 제공될 예정입니다</p>
             </div>
           </CardContent>

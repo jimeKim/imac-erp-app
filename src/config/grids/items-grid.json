@@ -36,15 +36,15 @@
     },
     {
       "id": "category",
-      "field": "category",
+      "field": "category.name",
       "label": "카테고리",
       "type": "text",
       "width": 150,
       "sortable": true,
       "filterable": true,
-      "filterType": "text",
+      "filterType": "select",
       "hideable": true,
-      "visible": false
+      "visible": true
     },
     {
       "id": "uom",
@@ -122,7 +122,6 @@
   ],
   "initialState": {
     "columnVisibility": {
-      "category": false,
       "status": false
     },
     "sorting": [

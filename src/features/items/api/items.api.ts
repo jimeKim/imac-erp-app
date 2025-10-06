@@ -52,11 +52,25 @@ export const useItemsQuery = (params?: ItemsQueryParams) => {
       if (params?.search) queryParams.append('search', params.search)
       if (params?.sku) queryParams.append('sku', params.sku)
 
-      const response = await apiClient.get<ItemsResponse>('/api/v1/items/', {
+      const response = await apiClient.get<{ data: Item[]; count: number }>('/api/v1/items/', {
         params: queryParams,
       })
 
-      return response.data
+      // 백엔드 응답 구조 (data, count) → 프론트엔드 형식 (items, pagination) 매핑
+      const total = response.data.count || response.data.data.length
+      const page = params?.page || 1
+      const limit = params?.limit || 20
+      const pages = Math.ceil(total / limit)
+
+      return {
+        items: response.data.data,
+        pagination: {
+          total,
+          page,
+          limit,
+          pages,
+        },
+      }
     },
     staleTime: 30_000, // 30초
     placeholderData: (previousData) => previousData,

@@ -18,6 +18,30 @@ except ImportError:
     OUTBOUNDS_ENABLED = False
     print("[WARN] Outbounds API not available")
 
+# Categories API 라우터
+try:
+    from app.api.categories import router as categories_router
+    CATEGORIES_ENABLED = True
+except ImportError:
+    CATEGORIES_ENABLED = False
+    print("[WARN] Categories API not available")
+
+# Items API 라우터
+try:
+    from app.api.items import router as items_router
+    ITEMS_ENABLED = True
+except ImportError as e:
+    print(f"[WARN] Items API not available: {e}")
+    ITEMS_ENABLED = False
+
+# Items BOM API 라우터
+try:
+    from app.api.items_bom import router as items_bom_router
+    ITEMS_BOM_ENABLED = True
+except ImportError:
+    ITEMS_BOM_ENABLED = False
+    print("[WARN] Items BOM API not available")
+
 security = HTTPBearer()
 
 # 엔진 식별 정보 (환경변수에서 직접 로드)
@@ -61,6 +85,21 @@ app.add_middleware(
 if OUTBOUNDS_ENABLED:
     app.include_router(outbounds_router)
     print("[INFO] Outbounds API registered")
+
+# Categories API 라우터 등록
+if CATEGORIES_ENABLED:
+    app.include_router(categories_router, prefix="/api/v1")
+    print("[INFO] Categories API registered")
+
+# Items API 라우터 등록
+if ITEMS_ENABLED:
+    app.include_router(items_router)
+    print("[INFO] Items API registered")
+
+# Items BOM API 라우터 등록
+if ITEMS_BOM_ENABLED:
+    app.include_router(items_bom_router)
+    print("[INFO] Items BOM API registered")
 
 
 # 전역 응답 헤더 미들웨어 (운영 소스 추적)
@@ -198,24 +237,60 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
 
 # Items API
 @app.get("/api/v1/items/")
-async def get_items(page: int = 1, limit: int = 10):
-    """Get all items from Supabase with pagination"""
+async def get_items(
+    page: int = 1, 
+    limit: int = 10,
+    category_id: Optional[str] = None
+):
+    """
+    Get all items from Supabase with pagination
+    
+    - **page**: Page number (default: 1)
+    - **limit**: Items per page (default: 10)
+    - **category_id**: Filter by category ID (optional)
+    """
     try:
         skip = (page - 1) * limit
-        result = supabase.table("items").select("*").range(skip, skip + limit - 1).execute()
-        return {"data": result.data, "count": len(result.data)}
+        
+        # Build query with category join
+        query = supabase.table("items").select(
+            "*, category:categories(id, name, description)",
+            count="exact"
+        )
+        
+        # Apply category filter if provided
+        if category_id:
+            query = query.eq("category_id", category_id)
+        
+        # Execute with pagination
+        result = query.range(skip, skip + limit - 1).execute()
+        
+        return {
+            "data": result.data,
+            "count": result.count or 0,
+            "page": page,
+            "limit": limit
+        }
     except Exception as e:
-        return {"error": str(e)}
+        raise HTTPException(status_code=500, detail=f"Failed to fetch items: {str(e)}")
 
 
 @app.get("/api/v1/items/{item_id}")
 async def get_item(item_id: str):
-    """Get specific item by ID"""
+    """Get specific item by ID with category information"""
     try:
-        result = supabase.table("items").select("*").eq("id", item_id).single().execute()
+        result = supabase.table("items").select(
+            "*, category:categories(id, name, description)"
+        ).eq("id", item_id).single().execute()
+        
+        if not result.data:
+            raise HTTPException(status_code=404, detail="Item not found")
+        
         return {"data": result.data}
+    except HTTPException:
+        raise
     except Exception as e:
-        return {"error": str(e)}
+        raise HTTPException(status_code=500, detail=f"Failed to fetch item: {str(e)}")
 
 
 # Inbounds API

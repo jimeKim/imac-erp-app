@@ -1,4 +1,5 @@
 import { useItemsQuery } from '@/features/items/api/items.api'
+import { useCategoriesQuery } from '@/features/categories/api/categories.api'
 import { Package, PlusCircle } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { ErrorDisplay } from '@/shared/components/feedback'
@@ -6,8 +7,9 @@ import { RequirePermission } from '@/shared/components/auth/RequirePermission'
 import { useTranslation } from 'react-i18next'
 import { GridManager, GridConfig } from '@/components/grid'
 import itemsGridConfigRaw from '@/config/grids/items-grid.json'
+import { useMemo } from 'react'
 
-const itemsGridConfig = itemsGridConfigRaw as GridConfig
+const itemsGridConfigBase = itemsGridConfigRaw as GridConfig
 
 /**
  * Items 목록 페이지 (셀형 그리드 버전)
@@ -24,7 +26,25 @@ export default function ItemsPageRealGrid() {
     limit: 1000, // Grid가 클라이언트 페이지네이션 처리
   })
 
+  const { data: categoriesData } = useCategoriesQuery(false)
+  const categories = useMemo(() => categoriesData?.data || [], [categoriesData])
+
   const items = itemsData?.items || []
+
+  // 카테고리 filterOptions를 동적으로 추가
+  const itemsGridConfig = useMemo<GridConfig>(() => {
+    const config = { ...itemsGridConfigBase }
+    const categoryColumn = config.columns.find((col) => col.id === 'category')
+
+    if (categoryColumn && categories.length > 0) {
+      categoryColumn.filterOptions = categories.map((cat) => ({
+        value: cat.name,
+        label: cat.name,
+      }))
+    }
+
+    return config
+  }, [categories])
 
   if (isLoading) {
     return (
@@ -49,7 +69,7 @@ export default function ItemsPageRealGrid() {
   }
 
   return (
-    <div className="container mx-auto p-4 space-y-4">
+    <div className="container mx-auto space-y-4 p-4">
       {/* 헤더 */}
       <div className="flex items-center justify-between">
         <div>
@@ -57,9 +77,7 @@ export default function ItemsPageRealGrid() {
             <Package className="h-6 w-6" />
             {t('modules:items.title')}
           </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            총 {items.length}개의 상품
-          </p>
+          <p className="mt-1 text-sm text-muted-foreground">총 {items.length}개의 상품</p>
         </div>
         <RequirePermission permission="ITEMS_CREATE">
           <Link
@@ -73,10 +91,7 @@ export default function ItemsPageRealGrid() {
       </div>
 
       {/* Grid */}
-      <GridManager
-        data={items}
-        config={itemsGridConfig}
-      />
+      <GridManager data={items} config={itemsGridConfig} />
     </div>
   )
 }

@@ -70,7 +70,7 @@ export const useAddBomComponent = () => {
           quantity: input.quantity,
           unit: input.unit || 'EA',
           notes: input.notes,
-        }
+        },
       )
       return response.data.data
     },
@@ -90,15 +90,26 @@ export const useUpdateBomComponent = () => {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async ({ id, input }: { id: string; input: BomUpdateInput }) => {
-      const response = await apiClient.patch<BomComponent>(`/api/v1/bom/${id}`, input)
-      return response.data
+    mutationFn: async ({
+      id,
+      parentItemId,
+      data,
+    }: {
+      id: string
+      parentItemId: string
+      data: BomUpdateInput
+    }) => {
+      const response = await apiClient.patch<BomComponent>(
+        `/api/v1/items/${parentItemId}/bom/components/${id}`,
+        data,
+      )
+      return { ...response.data, parentItemId }
     },
     onSuccess: (data) => {
       // 해당 상품의 BOM 데이터 무효화
-      queryClient.invalidateQueries({ queryKey: ['bom', 'tree', data.parent_item_id] })
-      queryClient.invalidateQueries({ queryKey: ['bom', 'components', data.parent_item_id] })
-      queryClient.invalidateQueries({ queryKey: ['bom', 'stats', data.parent_item_id] })
+      queryClient.invalidateQueries({ queryKey: ['bom', 'tree', data.parentItemId] })
+      queryClient.invalidateQueries({ queryKey: ['bom', 'components', data.parentItemId] })
+      queryClient.invalidateQueries({ queryKey: ['bom', 'stats', data.parentItemId] })
     },
   })
 }

@@ -4,14 +4,21 @@
 
 export type ItemType = 'FG' | 'SF' | 'MOD' | 'PT' | 'RM' | 'MR' | 'CS' | 'PKG'
 
+export interface ItemCategory {
+  id: string
+  name: string
+  description?: string
+}
+
 export interface Item {
   id: string
   name: string
-  
+
   // New backend fields (engine-core)
   sku?: string
   description?: string
-  category?: string
+  category_id?: string | null
+  category?: ItemCategory | null
   item_type?: ItemType
   uom?: string
   unit_cost?: number | null
@@ -24,7 +31,7 @@ export interface Item {
   is_sellable?: boolean
   has_bom?: boolean
   has_variants?: boolean
-  
+
   // Legacy fields for backward compatibility
   itemCode?: string
   type?: 'assembled' | 'single'

@@ -1,17 +1,21 @@
 import { useState } from 'react'
 import type { ChangeEvent, FormEvent } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { ArrowLeft, Save } from 'lucide-react'
+import { ArrowLeft, Save, Info } from 'lucide-react'
 import { Button, Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui'
 import { useToast } from '@/shared/hooks/useToast'
 import { useTranslation } from 'react-i18next'
 import { useItemTypeSettings } from '@/shared/hooks/useItemTypeSettings'
+import { useClassificationScheme } from '@/shared/hooks/useClassificationScheme'
+import { mapLegacyType } from '@/shared/config/classification-schemes'
+import { CategorySelect } from '@/features/categories/components/CategorySelect'
+import { useCreateItemMutation } from '@/features/items/api/items-crud.api'
 
 interface ItemFormData {
   sku: string
   name: string
   description: string
-  category: string
+  category_id: string
   item_type: string
   uom: string
   unit_cost: string
@@ -26,13 +30,15 @@ export default function ItemCreatePage() {
   const { toast } = useToast()
   const { t } = useTranslation(['modules', 'common'])
   const { filterEnabledTypes } = useItemTypeSettings()
+  const { requiresBOM, requiresRouting } = useClassificationScheme()
+  const createItemMutation = useCreateItemMutation()
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const [formData, setFormData] = useState<ItemFormData>({
     sku: '',
     name: '',
     description: '',
-    category: '',
+    category_id: '',
     item_type: 'FG',
     uom: 'EA',
     unit_cost: '',
@@ -41,10 +47,12 @@ export default function ItemCreatePage() {
 
   const [errors, setErrors] = useState<Partial<Record<keyof ItemFormData, string>>>({})
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+  ) => {
     const { name, value } = e.target
     setFormData((prev) => ({ ...prev, [name]: value }))
-    
+
     // 에러 초기화
     if (errors[name as keyof ItemFormData]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }))
@@ -62,6 +70,19 @@ export default function ItemCreatePage() {
       newErrors.name = t('modules:items.validation.nameRequired')
     }
 
+    // 분류 체계 검증 (Phase 1: 경고만)
+    const schemeCode = mapLegacyType(formData.item_type)
+
+    if (requiresBOM(schemeCode)) {
+      // Phase 1: BOM 필수 체크 (경고만, 나중에 저장 후 추가 가능)
+      console.warn(`[Classification] BOM required for ${schemeCode}`)
+    }
+
+    if (requiresRouting(schemeCode)) {
+      // Phase 1: 공정 필수 체크 (경고만)
+      console.warn(`[Classification] Routing required for ${schemeCode}`)
+    }
+
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
@@ -76,23 +97,28 @@ export default function ItemCreatePage() {
     setIsSubmitting(true)
 
     try {
-      // TODO: API 연동
-      // await createItem(formData)
-      
-      // 임시: 성공 시뮬레이션
-      await new Promise((resolve) => setTimeout(resolve, 1000))
+      // Real API call
+      await createItemMutation.mutateAsync(formData)
 
-      toast.success(
-        t('common:success'),
-        t('modules:items.messages.createSuccess')
-      )
+      toast.success(t('common:success'), t('modules:items.messages.createSuccess'))
 
       navigate('/items-real')
-    } catch (error) {
-      toast.error(
-        t('common:error'),
-        error instanceof Error ? error.message : t('modules:items.errors.createFailed')
-      )
+    } catch (error: unknown) {
+      // Handle API errors
+      const apiError = error as { response?: { data?: { code?: string; message?: string } } }
+
+      if (apiError.response?.data?.code === 'bom_required') {
+        toast.error(t('common:error'), '이 분류는 BOM(자재명세서) 연결이 필요합니다.')
+      } else if (apiError.response?.data?.code === 'routing_required') {
+        toast.error(t('common:error'), '이 분류는 공정(Routing) 정보가 필요합니다.')
+      } else if (apiError.response?.data?.code === 'sku_duplicate') {
+        toast.error(t('common:error'), `이미 존재하는 SKU입니다: ${formData.sku}`)
+      } else {
+        toast.error(
+          t('common:error'),
+          apiError.response?.data?.message || t('modules:items.errors.createFailed'),
+        )
+      }
     } finally {
       setIsSubmitting(false)
     }
@@ -123,7 +149,7 @@ export default function ItemCreatePage() {
           <CardContent className="space-y-4">
             {/* SKU */}
             <div>
-              <label htmlFor="sku" className="block text-sm font-medium mb-1">
+              <label htmlFor="sku" className="mb-1 block text-sm font-medium">
                 {t('modules:items.sku')} <span className="text-destructive">*</span>
               </label>
               <input
@@ -135,14 +161,12 @@ export default function ItemCreatePage() {
                 className="w-full rounded-md border bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 placeholder="ITEM-001"
               />
-              {errors.sku && (
-                <p className="mt-1 text-sm text-destructive">{errors.sku}</p>
-              )}
+              {errors.sku && <p className="mt-1 text-sm text-destructive">{errors.sku}</p>}
             </div>
 
             {/* 상품명 */}
             <div>
-              <label htmlFor="name" className="block text-sm font-medium mb-1">
+              <label htmlFor="name" className="mb-1 block text-sm font-medium">
                 {t('modules:items.name')} <span className="text-destructive">*</span>
               </label>
               <input
@@ -154,14 +178,12 @@ export default function ItemCreatePage() {
                 className="w-full rounded-md border bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 placeholder={t('modules:items.namePlaceholder')}
               />
-              {errors.name && (
-                <p className="mt-1 text-sm text-destructive">{errors.name}</p>
-              )}
+              {errors.name && <p className="mt-1 text-sm text-destructive">{errors.name}</p>}
             </div>
 
             {/* 설명 */}
             <div>
-              <label htmlFor="description" className="block text-sm font-medium mb-1">
+              <label htmlFor="description" className="mb-1 block text-sm font-medium">
                 {t('modules:items.description')}
               </label>
               <textarea
@@ -177,23 +199,19 @@ export default function ItemCreatePage() {
 
             {/* 카테고리 */}
             <div>
-              <label htmlFor="category" className="block text-sm font-medium mb-1">
+              <label htmlFor="category_id" className="mb-1 block text-sm font-medium">
                 {t('modules:items.category')}
               </label>
-              <input
-                id="category"
-                name="category"
-                type="text"
-                value={formData.category}
-                onChange={handleChange}
-                className="w-full rounded-md border bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                placeholder={t('modules:items.categoryPlaceholder')}
+              <CategorySelect
+                value={formData.category_id}
+                onChange={(value) => setFormData((prev) => ({ ...prev, category_id: value }))}
+                placeholder="-- 카테고리 선택 --"
               />
             </div>
 
             {/* 상품 유형 */}
             <div>
-              <label htmlFor="item_type" className="block text-sm font-medium mb-1">
+              <label htmlFor="item_type" className="mb-1 block text-sm font-medium">
                 {t('modules:items.itemType')} *
               </label>
               <select
@@ -226,12 +244,38 @@ export default function ItemCreatePage() {
               <p className="mt-1 text-xs text-muted-foreground">
                 {t(`modules:items.typeDescriptions.${formData.item_type}`)}
               </p>
+
+              {/* 분류 체계 정보 (Phase 1) */}
+              {(() => {
+                const schemeCode = mapLegacyType(formData.item_type)
+                const needsBOM = requiresBOM(schemeCode)
+                const needsRouting = requiresRouting(schemeCode)
+
+                if (!needsBOM && !needsRouting) return null
+
+                return (
+                  <div className="mt-2 space-y-1">
+                    {needsBOM && (
+                      <div className="flex items-center gap-2 text-xs text-blue-600">
+                        <Info className="h-3 w-3" />
+                        <span>이 분류는 BOM(자재명세서) 연결이 필요합니다.</span>
+                      </div>
+                    )}
+                    {needsRouting && (
+                      <div className="flex items-center gap-2 text-xs text-blue-600">
+                        <Info className="h-3 w-3" />
+                        <span>이 분류는 공정(Routing) 정보가 필요합니다.</span>
+                      </div>
+                    )}
+                  </div>
+                )
+              })()}
             </div>
 
             <div className="grid grid-cols-3 gap-4">
               {/* 단위 */}
               <div>
-                <label htmlFor="uom" className="block text-sm font-medium mb-1">
+                <label htmlFor="uom" className="mb-1 block text-sm font-medium">
                   {t('modules:items.uom')}
                 </label>
                 <select
@@ -251,7 +295,7 @@ export default function ItemCreatePage() {
 
               {/* 단가 */}
               <div>
-                <label htmlFor="unit_cost" className="block text-sm font-medium mb-1">
+                <label htmlFor="unit_cost" className="mb-1 block text-sm font-medium">
                   {t('modules:items.unitCost')}
                 </label>
                 <input
@@ -268,7 +312,7 @@ export default function ItemCreatePage() {
 
               {/* 상태 */}
               <div>
-                <label htmlFor="status" className="block text-sm font-medium mb-1">
+                <label htmlFor="status" className="mb-1 block text-sm font-medium">
                   {t('modules:items.status')}
                 </label>
                 <select
