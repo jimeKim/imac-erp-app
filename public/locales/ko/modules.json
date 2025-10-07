@@ -194,6 +194,10 @@
         "title": "카테고리 관리",
         "description": "상품 카테고리를 추가, 수정, 삭제합니다"
       },
+      "classification": {
+        "title": "상품 분류 체계",
+        "description": "상품 분류 라벨과 행동 규칙을 확인합니다"
+      },
       "inbounds": {
         "title": "입고 설정",
         "description": "입고 정책 및 규칙을 설정합니다",

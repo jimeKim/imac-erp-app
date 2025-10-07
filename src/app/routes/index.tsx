@@ -39,6 +39,7 @@ const SettingsPage = lazy(() => import('@/pages/settings/SettingsPage'))
 const ItemSettingsPage = lazy(() => import('@/pages/settings/ItemSettingsPage'))
 const ItemTypeSettingsPage = lazy(() => import('@/pages/settings/ItemTypeSettingsPage'))
 const CategorySettingsPage = lazy(() => import('@/pages/settings/CategorySettingsPage'))
+const ClassificationSettingsPage = lazy(() => import('@/pages/settings/ClassificationSettingsPage'))
 const InboundSettingsPage = lazy(() => import('@/pages/settings/InboundSettingsPage'))
 const OutboundSettingsPage = lazy(() => import('@/pages/settings/OutboundSettingsPage'))
 const PrinterSettingsPage = lazy(() => import('@/pages/settings/PrinterSettingsPage'))
@@ -294,6 +295,18 @@ export const router = createBrowserRouter([
         <MainLayout>
           <Suspense fallback={<LoadingFallback />}>
             <CategorySettingsPage />
+          </Suspense>
+        </MainLayout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/settings/classification',
+    element: (
+      <ProtectedRoute>
+        <MainLayout>
+          <Suspense fallback={<LoadingFallback />}>
+            <ClassificationSettingsPage />
           </Suspense>
         </MainLayout>
       </ProtectedRoute>

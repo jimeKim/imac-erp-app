@@ -13,6 +13,7 @@ import {
   ChevronRight,
   Ruler,
   Folders,
+  Tags,
 } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/components/ui'
 
@@ -40,6 +41,12 @@ export default function SettingsPage() {
       id: 'categories',
       icon: <Folders className="h-8 w-8 text-cyan-600" />,
       path: '/settings/categories',
+    },
+    {
+      id: 'classification',
+      icon: <Tags className="h-8 w-8 text-violet-600" />,
+      path: '/settings/classification',
+      badge: 'Phase 1',
     },
     {
       id: 'inbounds',
